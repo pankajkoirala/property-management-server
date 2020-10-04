@@ -25,20 +25,20 @@ const upload = multer({
 });
 
 //get all
-router.get("/property",(req,res)=>{
+router.get("/tanent",(req,res)=>{
   Property.find().then((Data)=>res.json(Data)).catch((err)=>res.json(err))
 })
 
 
 //get by id
-router.get("/property/:id",(req,res)=>{
+router.get("/tanent/:id",(req,res)=>{
   Property.findById({_id:req.params.id}).then((data) => res.json(data))
   .catch((err) => res.json(err));
 })
 
 
 //post router
-router.post("/property", upload.single("photo"), (req, res) => {
+router.post("/tanent", upload.single("photo"), (req, res) => {
   if (!req.file) return res.status(401).send(new Error("photo not found"));
   cloudinary.uploader.upload(req.file.path, (err, result) => {
     req.body.photo = result.secure_url;
@@ -54,11 +54,11 @@ router.post("/property", upload.single("photo"), (req, res) => {
 });
 
 //update to be left to validate
-
-router.put("/property/:id", (req, res) => {
+router.patch("/tanent/:id", (req, res) => {
+  console.log(req.body);
   const { error } = updatePropertyValidator(req.body);
   if (error) return res.status(401).send(error.details[0].message);
-  Property.findByIdAndUpdate(
+  Property.findOneAndUpdate(
     { _id: req.params.id },
     { $set: req.body },
     { new: true }
@@ -69,7 +69,7 @@ router.put("/property/:id", (req, res) => {
 
   
 //delet router
-router.delete("/property/:id",(req,res)=>{
+router.delete("/tanent/:id",(req,res)=>{
   Property.remove({_id:req.params.id})
   .then((data) => res.json("data deleted"))
   .catch((err) => res.json(err));

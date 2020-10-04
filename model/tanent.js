@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 
-
 const PropertySchema = mongoose.Schema({
   type: {
     type: String,
@@ -33,11 +32,6 @@ const PropertySchema = mongoose.Schema({
     type: String,
     required: true,
   },
- reference: {
-    type: Number,
-    number : (Math.random()+' ').substring(2,10)+(Math.random()+' ').substring(2,10)
-},
-
 });
 
 const Property = mongoose.model("Property", PropertySchema);
@@ -52,7 +46,6 @@ const createPropertyValidator = payload => {
       NoOfToilet: Joi.number().required(),
       condition: Joi.string().required(),
       photo:  Joi.string(),
-
 
   });
   return schema.validate(payload)
