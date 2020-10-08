@@ -1,70 +1,72 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
+const { object } = require("joi");
 
 
-const PropertySchema = mongoose.Schema({
-  type: {
+const TenantSchema = mongoose.Schema({
+  tenant_phoneNo: {
+    type: Number,
+    required: true,
+  },
+  tenant_firstName:{
+      type:String,
+      required:true
+  },
+  tenant_middleName: {
     type: String,
     required: true,
   },
-  cost:{
-      type:Number,
-      required:true
-  },
-  size: {
-    type: Number,
+  tenant_lastName: {
+    type: String,
     required: true,
   },
-  NoOfRoom: {
-    type: Number,
-    required: true,
-  },
-  NoOfToilet: {
-    type: Number,
+  tenant_email: {
+    type: String,
     required: true,
   },
  
-  condition: {
-    type: String,
-    required: true,
+  address: {
+    type: Object,
+ 
   },
-  photo: {
+  tenant_photo: {
     type: String,
     required: true,
   },
 });
 
-const Property = mongoose.model("Property", PropertySchema);
+const Tenant = mongoose.model("Tenant", TenantSchema);
 
-const createPropertyValidator = payload => {
+const createTenantValidator = payload => {
   const  schema = Joi.object({
-    type: Joi.string().required(),
-    cost:Joi.number().required(),
-    size: Joi.number()
+    tenant_phoneNo: Joi.number().required(),
+    tenant_firstName:Joi.string().required(),
+    tenant_middleName: Joi.string()
       .required(),
-      NoOfRoom: Joi.number().required(),
-      NoOfToilet: Joi.number().required(),
-      condition: Joi.string().required(),
-      photo:  Joi.string(),
+      tenant_email:Joi.string().required(),
+      tenant_lastName: Joi.string().required(),
+      address: Joi.object(),
+      tenant_photo: Joi.string()
 
   });
   return schema.validate(payload)
 };
-const updatePropertyValidator = payload => {
+const updateTenantValidator = payload => {
   const schema = Joi.object({
-    type: Joi.string().required(),
-    cost:Joi.number().required(),
-    size: Joi.number()
+    tenant_phoneNo: Joi.number().required(),
+    tenant_firstName:Joi.string().required(),
+    tenant_middleName: Joi.string()
       .required(),
-      NoOfRoom: Joi.number().required(),
-      NoOfToilet: Joi.number().required(),
-      condition: Joi.string().required(),
-      photo:  Joi.string(),
+      tenant_email:Joi.string().required(),
+
+      tenant_lastName: Joi.string().required(),
+      address: Joi.object(),
+      tenant_photo: Joi.string()
   });
   return schema.validate(payload);
 };
 module.exports = {
-  Property,
-  createPropertyValidator,
-  updatePropertyValidator
+  Tenant,
+  createTenantValidator,
+  updateTenantValidator
 };

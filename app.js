@@ -35,6 +35,9 @@ app.use("/api",SignupRouter)
 const propertyRouter=require("./router/property")
 app.use("/api",propertyRouter)
 
+// router tenant
+const TenantRouter=require("./router/tanent")
+app.use("/api",TenantRouter)
 // routes
 app.get("/",(req,res)=>{
     res.send("we are on home");

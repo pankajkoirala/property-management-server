@@ -3,9 +3,9 @@ const app=express()
 const path = require("path");
 const router = express.Router();
 const {
- Property,createPropertyValidator,updatePropertyValidator
-} = require("../model/property");
-const multer = require("multer");
+ Tenant,createTenantValidator,updateTenantValidator
+} = require("../model/tanent");
+const multer = require("multer"); 
 const cloudinary = require("cloudinary").v2;
 const auth=require("../middleware/middleware")
 
@@ -25,28 +25,31 @@ const upload = multer({
 });
 
 //get all
-router.get("/tanent",(req,res)=>{
-  Property.find().then((Data)=>res.json(Data)).catch((err)=>res.json(err))
+router.get("/tenant",(req,res)=>{
+  Tenant.find().then((Data)=>res.json(Data)).catch((err)=>res.json(err))
 })
 
 
 //get by id
-router.get("/tanent/:id",(req,res)=>{
-  Property.findById({_id:req.params.id}).then((data) => res.json(data))
+router.get("/tenant/:id",(req,res)=>{
+  Tenant.findById({_id:req.params.id}).then((data) => res.json(data))
   .catch((err) => res.json(err));
 })
 
 
 //post router
-router.post("/tanent", upload.single("photo"), (req, res) => {
+router.post("/tenant", upload.single("tenant_photo"), (req, res) => {
+  console.log(req.body);
   if (!req.file) return res.status(401).send(new Error("photo not found"));
   cloudinary.uploader.upload(req.file.path, (err, result) => {
-    req.body.photo = result.secure_url;
+    console.log(result);
+
+    req.body.tenant_photo = result.secure_url;
     //validator of schema
-    const { error } = createPropertyValidator(req.body);
+    const { error } = createTenantValidator(req.body);
     if (error) return res.status(401).send(error);
-    let propertyData = new Property(req.body);
-    propertyData
+    let TenantData = new Tenant(req.body);
+    TenantData
       .save()
       .then((data) => res.send("data send successfully"))
       .catch((err) => res.json({ messege: err }));
@@ -54,9 +57,9 @@ router.post("/tanent", upload.single("photo"), (req, res) => {
 });
 
 //update to be left to validate
-router.patch("/tanent/:id", (req, res) => {
+router.patch("/tenant/:id", (req, res) => {
   console.log(req.body);
-  const { error } = updatePropertyValidator(req.body);
+  const { error } = updateTenantValidator(req.body);
   if (error) return res.status(401).send(error.details[0].message);
   Property.findOneAndUpdate(
     { _id: req.params.id },
@@ -69,8 +72,8 @@ router.patch("/tanent/:id", (req, res) => {
 
   
 //delet router
-router.delete("/tanent/:id",(req,res)=>{
-  Property.remove({_id:req.params.id})
+router.delete("/tenant/:id",(req,res)=>{
+  Tenant.remove({_id:req.params.id})
   .then((data) => res.json("data deleted"))
   .catch((err) => res.json(err));
 })

@@ -1,42 +1,51 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
+const { string } = require("joi");
 
 
 
 const PropertySchema = mongoose.Schema({
-  type: {
+  property_type: {
     type: String,
     required: true,
   },
-  cost:{
+  property_price:{
       type:Number,
       required:true
   },
-  size: {
-    type: Number,
-    required: true,
-  },
-  NoOfRoom: {
-    type: Number,
-    required: true,
-  },
-  NoOfToilet: {
-    type: Number,
-    required: true,
-  },
- 
-  condition: {
+  property_status: {
     type: String,
     required: true,
   },
-  photo: {
+  BHK: {
     type: String,
     required: true,
   },
- reference: {
+  toilet: {
     type: Number,
-    number : (Math.random()+' ').substring(2,10)+(Math.random()+' ').substring(2,10)
-},
+    required: true,
+  },
+
+  property_photo: {
+    type: String,
+    required: true,
+  },
+  street:{
+    type: String,
+    required: true,
+  },
+  city:{
+    type: String,
+    required: true,
+  },
+  country:{
+    type: String,
+    required: true,
+  }
+//  reference: {
+//     type: Number,
+//     number : (Math.random()+' ').substring(2,10)+(Math.random()+' ').substring(2,10)
+// },
 
 });
 
@@ -44,14 +53,16 @@ const Property = mongoose.model("Property", PropertySchema);
 
 const createPropertyValidator = payload => {
   const  schema = Joi.object({
-    type: Joi.string().required(),
-    cost:Joi.number().required(),
-    size: Joi.number()
+    property_type: Joi.string().required(),
+    property_price:Joi.number().required(),
+    property_status: Joi.string()
       .required(),
-      NoOfRoom: Joi.number().required(),
-      NoOfToilet: Joi.number().required(),
-      condition: Joi.string().required(),
-      photo:  Joi.string(),
+      BHK: Joi.string().required(),
+      toilet: Joi.number().required(),
+      street:Joi.string().required(),
+      city:Joi.string().required(),
+      country:Joi.string().required(),
+      property_photo:  Joi.string(),
 
 
   });
@@ -59,14 +70,16 @@ const createPropertyValidator = payload => {
 };
 const updatePropertyValidator = payload => {
   const schema = Joi.object({
-    type: Joi.string().required(),
-    cost:Joi.number().required(),
-    size: Joi.number()
+    property_type: Joi.string().required(),
+    property_price:Joi.number().required(),
+    property_status: Joi.string()
       .required(),
-      NoOfRoom: Joi.number().required(),
-      NoOfToilet: Joi.number().required(),
-      condition: Joi.string().required(),
-      photo:  Joi.string(),
+      BHK: Joi.string().required(),
+      toilet: Joi.number().required(),
+      street:Joi.string().required(),
+      city:Joi.string().required(),
+      country:Joi.string().required(),
+      property_photo:  Joi.string(),
   });
   return schema.validate(payload);
 };
