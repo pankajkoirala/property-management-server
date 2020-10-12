@@ -51,10 +51,10 @@ ZipCode:{
     type: String,
     required: true,
   },
-  // tenant_GovId:{
-  //   type: String,
-  //   required: true,
-  // } ,
+  tenant_GovId:{
+    type: String,
+    required: true,
+  } ,
 });
 
 const Tenant = mongoose.model("Tenant", TenantSchema);
@@ -68,6 +68,8 @@ const createTenantValidator = payload => {
       tenant_email:Joi.string().required(),
       tenant_lastName: Joi.string().required(),
       tenant_photo: Joi.string(),
+      tenant_GovId: Joi.string(),
+
       street:Joi.string().required(),
       city:Joi.string().required(),
       country:Joi.string().required(),
@@ -88,6 +90,8 @@ const updateTenantValidator = payload => {
 
       tenant_lastName: Joi.string().required(),
       tenant_photo: Joi.string(),
+      tenant_GovId: Joi.string(),
+
       street:Joi.string().required(),
       city:Joi.string().required(),
       country:Joi.string().required(),

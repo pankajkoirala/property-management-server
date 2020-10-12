@@ -38,15 +38,17 @@ router.get("/tenant/:id",(req,res)=>{
 
 
 //post router
-router.post("/tenant", upload.array("tenant_photo","tenant_GovId",2), (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
-  if (!req.file) return res.status(401).send(new Error("photo not found"));
-  cloudinary.uploader.upload(req.file.path, (err, result) => {
-    console.log(req.result);
+router.post("/tenant", upload.any(), (req, res) => {
+  console.log(req.files);
 
-    // req.body.tenant_photo = result.secure_url;
-    //validator of schema
+  if (!req.files) return res.status(401).send(new Error("photo not found"));
+  let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
+  Promise.all(uploadedFile).then((result)=>{
+    req.body.tenant_photo = result[0].secure_url;
+    req.body.tenant_GovId = result[1].secure_url;
+    console.log(req.body);
+
+  //validator of schema
     const { error } = createTenantValidator(req.body);
     if (error) return res.status(401).send(error);
     let TenantData = new Tenant(req.body);
@@ -54,7 +56,7 @@ router.post("/tenant", upload.array("tenant_photo","tenant_GovId",2), (req, res)
       .save()
       .then((data) => res.send("data send successfully"))
       .catch((err) => res.json({ messege: err }));
-  });
+    })
 });
 
 //update to be left to validate
