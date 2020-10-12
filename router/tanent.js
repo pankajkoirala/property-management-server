@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
   storage: storage,
-});
+})
 
 //get all
 router.get("/tenant",(req,res)=>{
@@ -38,13 +38,14 @@ router.get("/tenant/:id",(req,res)=>{
 
 
 //post router
-router.post("/tenant", upload.single("tenant_photo"), (req, res) => {
+router.post("/tenant", upload.array("tenant_photo","tenant_GovId",2), (req, res) => {
   console.log(req.body);
+  console.log(req.file);
   if (!req.file) return res.status(401).send(new Error("photo not found"));
   cloudinary.uploader.upload(req.file.path, (err, result) => {
-    console.log(result);
+    console.log(req.result);
 
-    req.body.tenant_photo = result.secure_url;
+    // req.body.tenant_photo = result.secure_url;
     //validator of schema
     const { error } = createTenantValidator(req.body);
     if (error) return res.status(401).send(error);

@@ -25,14 +25,36 @@ const TenantSchema = mongoose.Schema({
     required: true,
   },
  
-  address: {
-    type: Object,
  
-  },
+  street:{
+    type:String,
+    required:true
+},
+city: {
+  type: String,
+  required: true,
+},
+provience: {
+  type: String,
+  required: true,
+},
+country: {
+  type: String,
+  required: true,
+},
+
+ZipCode:{
+  type: Number,
+  required: true,
+},
   tenant_photo: {
     type: String,
     required: true,
   },
+  // tenant_GovId:{
+  //   type: String,
+  //   required: true,
+  // } ,
 });
 
 const Tenant = mongoose.model("Tenant", TenantSchema);
@@ -45,8 +67,13 @@ const createTenantValidator = payload => {
       .required(),
       tenant_email:Joi.string().required(),
       tenant_lastName: Joi.string().required(),
-      address: Joi.object(),
-      tenant_photo: Joi.string()
+      tenant_photo: Joi.string(),
+      street:Joi.string().required(),
+      city:Joi.string().required(),
+      country:Joi.string().required(),
+      provience:Joi.string().required(),
+      ZipCode:Joi.string().required()
+
 
   });
   return schema.validate(payload)
@@ -60,8 +87,12 @@ const updateTenantValidator = payload => {
       tenant_email:Joi.string().required(),
 
       tenant_lastName: Joi.string().required(),
-      address: Joi.object(),
-      tenant_photo: Joi.string()
+      tenant_photo: Joi.string(),
+      street:Joi.string().required(),
+      city:Joi.string().required(),
+      country:Joi.string().required(),
+      provience:Joi.string().required(),
+      ZipCode:Joi.string().required()
   });
   return schema.validate(payload);
 };
@@ -70,3 +101,5 @@ module.exports = {
   createTenantValidator,
   updateTenantValidator
 };
+
+

@@ -26,7 +26,7 @@ const PropertySchema = mongoose.Schema({
     required: true,
   },
 
-  property_photo: {
+  photo: {
     type: String,
     required: true,
   },
@@ -62,7 +62,7 @@ const createPropertyValidator = payload => {
       street:Joi.string().required(),
       city:Joi.string().required(),
       country:Joi.string().required(),
-      property_photo:  Joi.string(),
+      photo:  Joi.string(),
 
 
   });
@@ -79,7 +79,7 @@ const updatePropertyValidator = payload => {
       street:Joi.string().required(),
       city:Joi.string().required(),
       country:Joi.string().required(),
-      property_photo:  Joi.string(),
+      photo:  Joi.string(),
   });
   return schema.validate(payload);
 };
