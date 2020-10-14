@@ -2,16 +2,14 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 const { string } = require("joi");
 
-
-
 const PropertySchema = mongoose.Schema({
   property_type: {
     type: String,
     required: true,
   },
-  property_price:{
-      type:Number,
-      required:true
+  property_price: {
+    type: Number,
+    required: true,
   },
   property_status: {
     type: String,
@@ -30,61 +28,58 @@ const PropertySchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  street:{
+  street: {
     type: String,
     required: true,
   },
-  city:{
+  city: {
     type: String,
     required: true,
   },
-  country:{
+  country: {
     type: String,
     required: true,
-  }
-//  reference: {
-//     type: Number,
-//     number : (Math.random()+' ').substring(2,10)+(Math.random()+' ').substring(2,10)
-// },
-
+  },
+  referenceNO: {
+    type: Number,
+  },
 });
 
 const Property = mongoose.model("Property", PropertySchema);
 
-const createPropertyValidator = payload => {
-  const  schema = Joi.object({
-    property_type: Joi.string().required(),
-    property_price:Joi.number().required(),
-    property_status: Joi.string()
-      .required(),
-      BHK: Joi.string().required(),
-      toilet: Joi.number().required(),
-      street:Joi.string().required(),
-      city:Joi.string().required(),
-      country:Joi.string().required(),
-      photo:  Joi.string(),
-
-
-  });
-  return schema.validate(payload)
-};
-const updatePropertyValidator = payload => {
+const createPropertyValidator = (payload) => {
   const schema = Joi.object({
     property_type: Joi.string().required(),
-    property_price:Joi.number().required(),
-    property_status: Joi.string()
-      .required(),
-      BHK: Joi.string().required(),
-      toilet: Joi.number().required(),
-      street:Joi.string().required(),
-      city:Joi.string().required(),
-      country:Joi.string().required(),
-      photo:  Joi.string(),
+    property_price: Joi.number().required(),
+    property_status: Joi.string().required(),
+    BHK: Joi.string().required(),
+    toilet: Joi.number().required(),
+    street: Joi.string().required(),
+    city: Joi.string().required(),
+    country: Joi.string().required(),
+    photo: Joi.string(),
+    referenceNO: Joi.number(),
+  });
+  return schema.validate(payload);
+};
+const updatePropertyValidator = (payload) => {
+  const schema = Joi.object({
+    property_type: Joi.string().required(),
+    property_price: Joi.number().required(),
+    property_status: Joi.string().required(),
+    BHK: Joi.string().required(),
+    toilet: Joi.number().required(),
+    street: Joi.string().required(),
+    city: Joi.string().required(),
+    country: Joi.string().required(),
+    photo: Joi.string(),
+    referenceNO: Joi.number(),
+
   });
   return schema.validate(payload);
 };
 module.exports = {
   Property,
   createPropertyValidator,
-  updatePropertyValidator
+  updatePropertyValidator,
 };

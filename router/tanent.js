@@ -44,6 +44,7 @@ router.post("/tenant", upload.any(), (req, res) => {
   Promise.all(uploadedFile).then((result)=>{
     req.body.tenant_photo = result[0].secure_url;
     req.body.tenant_GovId = result[1].secure_url;
+    req.body.TenantId=(Math.random() * 900000).toFixed(0)
 
   //validator of schema
     const { error } = createTenantValidator(req.body);

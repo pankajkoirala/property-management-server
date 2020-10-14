@@ -55,6 +55,9 @@ ZipCode:{
     type: String,
     required: true,
   } ,
+  TenantId: {
+    type: Number,
+  },
 });
 
 const Tenant = mongoose.model("Tenant", TenantSchema);
@@ -69,12 +72,16 @@ const createTenantValidator = payload => {
       tenant_lastName: Joi.string().required(),
       tenant_photo: Joi.string(),
       tenant_GovId: Joi.string(),
+      TenantId: Joi.number(),
+
 
       street:Joi.string().required(),
       city:Joi.string().required(),
       country:Joi.string().required(),
       provience:Joi.string().required(),
-      ZipCode:Joi.string().required()
+      ZipCode:Joi.string().required(),
+    TenantId: Joi.number(),
+
 
 
   });

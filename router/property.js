@@ -38,14 +38,15 @@ router.get("/property/:id",(req,res)=>{
 
 
 //post router
-router.post("/property", upload.single("photo"), (req, res) => {
+router.post("/property", upload.single("photo"),async (req, res) => {
   console.log(req.body);
   console.log(req.file);
-
+ 
   if (!req.file) return res.status(401).send(new Error("photo not found"));
   cloudinary.uploader.upload(req.file.path, (err, result) => {
 
     req.body.photo = result.secure_url;
+    req.body.referenceNO=(Math.random() * 900000).toFixed(0)
     //validator of schema
     const { error } = createPropertyValidator(req.body);
     if (error) return res.status(401).send(error);
