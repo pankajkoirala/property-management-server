@@ -39,14 +39,11 @@ router.get("/tenant/:id",(req,res)=>{
 
 //post router
 router.post("/tenant", upload.any(), (req, res) => {
-  console.log(req.files);
-
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
   Promise.all(uploadedFile).then((result)=>{
     req.body.tenant_photo = result[0].secure_url;
     req.body.tenant_GovId = result[1].secure_url;
-    console.log(req.body);
 
   //validator of schema
     const { error } = createTenantValidator(req.body);
