@@ -73,8 +73,6 @@ const createTenantValidator = payload => {
       tenant_photo: Joi.string(),
       tenant_GovId: Joi.string(),
       TenantId: Joi.number(),
-
-
       street:Joi.string().required(),
       city:Joi.string().required(),
       country:Joi.string().required(),
