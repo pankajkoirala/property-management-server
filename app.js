@@ -38,6 +38,11 @@ app.use("/api",propertyRouter)
 // router tenant
 const TenantRouter=require("./router/tanent")
 app.use("/api",TenantRouter)
+
+// router lease
+const LeaseRouter=require("./router/lease")
+app.use("/api",LeaseRouter)
+
 // routes
 app.get("/",(req,res)=>{
     res.send("we are on home");
