@@ -1,5 +1,4 @@
 const express = require ("express")
-const app=express()
 const path = require("path");
 const router = express.Router();
 const {
@@ -7,8 +6,8 @@ const {
 } = require("../model/lease");
 const multer = require("multer"); 
 const cloudinary = require("cloudinary").v2;
-const auth=require("../middleware/middleware")
-
+const auth=require("../middleware/middleware");
+const {leasedata}= require("../assets/sampledataLease")
 
 
 //multer config
@@ -26,9 +25,9 @@ const upload = multer({
 
 //get all
 router.get("/lease",(req,res)=>{
+
     Lease.find().then((Data)=>res.json(Data)).catch((err)=>res.json(err))
 })
-
 
 //get by id
 router.get("/lease/:id",(req,res)=>{
@@ -39,29 +38,32 @@ router.get("/lease/:id",(req,res)=>{
 
 //post router
 router.post("/lease", upload.any(), (req, res) => {
-    console.log(req.files);
-    console.log(req.body);
-  if (!req.files) return res.status(401).send(new Error("photo not found"));
-  let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
-  Promise.all(uploadedFile).then((result)=>{
-    req.body.photo = result[0].secure_url;
-    // req.body.tenant_GovId = result[1].secure_url;
-    req.body.LeaseId=(Math.random() * 900000).toFixed(0)
-
-  //validator of schema
-    const { error } = createLeaseValidator(req.body);
-    if (error) return res.status(401).send(error);
-    let TenantData = new Lease(req.body);
-    TenantData
-      .save()
-      .then((data) => res.send("data send successfully"))
-      .catch((err) => res.json({ messege: err }));
-    })
+  const { error } = createLeaseValidator(req.body);
+  if (error) return res.status(401).send(error.details[0].message);
+  console.log(req.body);
+    return res.send("ok")
+  
+  // if (!req.files) return res.status(401).send(new Error("photo not found"));
+  // let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
+  // Promise.all(uploadedFile).then((result)=>{
+  //   req.body.photo = result[0].secure_url;
+  //   // req.body.tenant_GovId = result[1].secure_url;
+  //   req.body.LeaseId=(Math.random() * 900000).toFixed(0)
+  //   console.log(req.body)
+  //   //validator of schema
+  //   const { error } = createLeaseValidator(req.body);
+  //   if (error) return res.status(401).send(error.details[0].message);
+  //   let TenantData = new Lease(req.body);
+  //   TenantData
+  //     .save()
+  //     .then((data) => res.send("data send successfully"))
+  //     .catch((err) => res.json({ messege: err }));
+  //   })
 });
 
 //update to be left to validate
 router.patch("/lease/:id", (req, res) => {
-  console.log(req.body);
+
   const { error } = updateLeaseValidator(req.body);
   if (error) return res.status(401).send(error.details[0].message);
   Property.findOneAndUpdate(

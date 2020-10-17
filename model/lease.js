@@ -1,20 +1,24 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
-const { object, array } = require("joi");
+const JoiObjectId =require("joi-objectid")
+const myJoiObjectId = JoiObjectId(Joi);
 
 
 
 const LeaseSchema = mongoose.Schema({
-    chequeList: [{type:Date,type:Number}],
-
+    chequeList:[{
+      issueDate:{type:Date},
+      chequeNo:{type:Number},
+    }],
+    photo: {
+      type: String,
+      required: true,
+    },
   lease_enterDate:{
       type:Date,
       required:true
   },
-  tenants: {
-    type: String,
-    required: true,
-  },
+
   lease_Term: {
     type: String,
     required: true,
@@ -64,6 +68,15 @@ late_feeType: {
   LeaseId: {
     type: Number,
   },
+  property:[{
+    type:mongoose.Schema.ObjectId,
+    ref:"Property"
+  }],
+  tenants:[{
+    type:mongoose.Schema.ObjectId,
+    ref:"Tenant"
+  }],
+  
 });
 
 const Lease = mongoose.model("Lease", LeaseSchema);
@@ -77,7 +90,9 @@ const createLeaseValidator = payload => {
         })
       ),
 
-    tenants:Joi.string().required(),
+    tenants:Joi.array().items(
+      myJoiObjectId()
+    ),
     lease_Term:Joi.string().required(),
     frequency:Joi.string().required(),
     late_feeType:Joi.string().required(),
@@ -91,6 +106,11 @@ const createLeaseValidator = payload => {
     expirationDate: Joi.date().required(),
     firstDueDate: Joi.date().required(),
     securityfirstDueDate: Joi.date().required(),
+    photo: Joi.string(),
+    
+    property: Joi.array().items(
+      myJoiObjectId()
+    ),
   });
   return schema.validate(payload)
 };
@@ -102,7 +122,9 @@ const updateLeaseValidator = payload => {
             chequeNo: Joi.number(),
         })
       ),
-    tenants:Joi.string().required(),
+    tenants:Joi.array().items(
+      myJoiObjectId()
+    ),
     lease_Term:Joi.string().required(),
     frequency:Joi.string().required(),
     late_feeType:Joi.string().required(),
@@ -116,6 +138,11 @@ const updateLeaseValidator = payload => {
     expirationDate: Joi.date().required(),
     firstDueDate: Joi.date().required(),
     securityfirstDueDate: Joi.date().required(),
+    property: Joi.array().items(
+      myJoiObjectId()
+    ),
+    photo: Joi.string(),
+
   });
   return schema.validate(payload);
 };
