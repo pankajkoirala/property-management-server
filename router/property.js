@@ -44,7 +44,6 @@ router.post("/property", upload.single("photo"),async (req, res) => {
  
   if (!req.file) return res.status(401).send(new Error("photo not found"));
   cloudinary.uploader.upload(req.file.path, (err, result) => {
-
     req.body.photo = result.secure_url;
     req.body.referenceNO=(Math.random() * 900000).toFixed(0)
     //validator of schema
