@@ -26,7 +26,7 @@ const upload = multer({
 
 //get all
 router.get("/lease", (req, res) => {
-  Lease.find()
+  Lease.find().populate("property").populate("tenants")
     .then((Data) => res.json(Data))
     .catch((err) => res.json(err));
 });
