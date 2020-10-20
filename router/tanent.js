@@ -43,7 +43,11 @@ router.post("/tenant", upload.any(), (req, res) => {
   let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
   Promise.all(uploadedFile).then((result)=>{
     req.body.tenant_photo = result[0].secure_url;
-    req.body.tenant_GovId = result[1].secure_url;
+    req.body.tenant_EId_photo = result[1].secure_url;
+    req.body.tenant_TradeLicense_photo = result[2].secure_url;
+    req.body.tenant_IdentityLetter_photo = result[3].secure_url;
+    req.body.tenant_SK_Properties_photo = result[4].secure_url;
+    req.body.tenant_POA_photo = result[5].secure_url;
     req.body.TenantId=(Math.random() * 900000).toFixed(0)
 
   //validator of schema
