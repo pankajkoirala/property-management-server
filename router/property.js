@@ -39,7 +39,6 @@ router.get("/property/:id",(req,res)=>{
 
 //post router
 router.post("/property", upload.any(), (req, res) => {
-  console.log(req.files);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
   Promise.all(uploadedFile).then((result)=>{
@@ -59,8 +58,14 @@ router.post("/property", upload.any(), (req, res) => {
 
 //update to be left to validate
 
-router.put("/property/:id", (req, res) => {
-  console.log(req.body);
+router.put("/property/:id",upload.any(), (req, res) => {
+ 
+  if (!req.files) return res.status(401).send(new Error("photo not found"));
+  let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
+  Promise.all(uploadedFile).then((result)=>{
+    req.body.Title_Deed_Photo = result[0].secure_url;
+    req.body.photo = result[1].secure_url;
+
   const { error } = updatePropertyValidator(req.body);
   if (error) return res.status(401).send(error.details[0].message);
   Property.findByIdAndUpdate(
@@ -70,6 +75,7 @@ router.put("/property/:id", (req, res) => {
   )
     .then((data) => res.json("updated"))
     .catch((err) => res.json(err));
+  })
 });
 
   

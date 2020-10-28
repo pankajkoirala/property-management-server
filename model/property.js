@@ -148,11 +148,11 @@ const PropertySchema = mongoose.Schema({
   },
   Title_Deed_Photo: {
     type: String,
-    required: true,
+   // required: true,
   },
   photo: {
     type: String,
-    required: true,
+    //required: true,
   },
 });
 
@@ -194,7 +194,7 @@ const createPropertyValidator = (payload) => {
     plot_Number: Joi.number().required(),
     building_floorNumber: Joi.number().required(),
     Property_Premise_Number: Joi.number().required(),
-    Title_Deed_Photo: Joi.string().required(),
+    Title_Deed_Photo: Joi.string(),
     Muncipality_Number: Joi.number().required(),
     Property_Area: Joi.number().required(),
   });
@@ -210,7 +210,6 @@ const updatePropertyValidator = (payload) => {
     street: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-    photo: Joi.string(),
     referenceNO: Joi.number(),
     Parking: Joi.string().required(),
     Swimming: Joi.string().required(),
@@ -238,9 +237,10 @@ const updatePropertyValidator = (payload) => {
     plot_Number: Joi.number().required(),
     building_floorNumber: Joi.number().required(),
     Property_Premise_Number: Joi.number().required(),
-    Title_Deed_Photo: Joi.string().required(),
     Muncipality_Number: Joi.number().required(),
     Property_Area: Joi.number().required(),
+    Title_Deed_Photo: Joi.string(),
+    photo: Joi.string(),
   });
   return schema.validate(payload);
 };

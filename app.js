@@ -47,6 +47,18 @@ app.use("/api",LeaseRouter)
 const BrokerRouter=require("./router/broker")
 app.use("/api",BrokerRouter)
 
+// maintanance broker
+const MaintananceCompanyRouter=require("./router/maintanance_Company")
+app.use("/api",MaintananceCompanyRouter)
+
+// management company
+const ManagementCompanyRouter=require("./router/management_company")
+app.use("/api",ManagementCompanyRouter)
+
+// employee
+const EmployeeRouter=require("./router/employee")
+app.use("/api",EmployeeRouter)
+
 // routes
 app.get("/",(req,res)=>{
     res.send("we are on home");
