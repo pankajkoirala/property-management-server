@@ -63,8 +63,8 @@ router.put("/property/:id",upload.any(), (req, res) => {
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
   Promise.all(uploadedFile).then((result)=>{
-    req.body.Title_Deed_Photo = result[0].secure_url;
-    req.body.photo = result[1].secure_url;
+    req.body.Title_Deed_Photo = result[0]?result[0].secure_url:req.body.Title_Deed_Photo;
+    req.body.photo =result[0]?result[1].secure_url:req.body.photo;
 
   const { error } = updatePropertyValidator(req.body);
   if (error) return res.status(401).send(error.details[0].message);
@@ -73,7 +73,7 @@ router.put("/property/:id",upload.any(), (req, res) => {
     { $set: req.body },
     { new: true }
   )
-    .then((data) => res.json("updated"))
+    .then((data) => res.json(data))
     .catch((err) => res.json(err));
   })
 });

@@ -39,6 +39,8 @@ router.get("/tenant/:id",(req,res)=>{
 
 //post router
 router.post("/tenant", upload.any(), (req, res) => {
+  console.log(req.body);
+
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
   Promise.all(uploadedFile).then((result)=>{
@@ -62,8 +64,17 @@ router.post("/tenant", upload.any(), (req, res) => {
 });
 
 //update to be left to validate
-router.patch("/tenant/:id", (req, res) => {
+router.put("/tenant/:id", (req, res) => {
   console.log(req.body);
+  if (!req.files) return res.status(401).send(new Error("photo not found"));
+  let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
+  Promise.all(uploadedFile).then((result)=>{
+    req.body.tenant_photo = result[0].secure_url?result[0].secure_url:req.body.tenant_photo;
+    req.body.tenant_EId_photo = result[1].secure_url?result[1].secure_url:req.body.tenant_EId_photo;
+    req.body.tenant_TradeLicense_photo =result[2].secure_url?result[2].secure_url:req.body.tenant_TradeLicense_photo;
+    req.body.tenant_IdentityLetter_photo = result[3].secure_url?result[3].secure_url:req.body.tenant_IdentityLetter_photo;
+    req.body.tenant_SK_Properties_photo = result[4].secure_url?result[4].secure_url:req.body.tenant_SK_Properties_photo;
+    req.body.tenant_POA_photo =result[5].secure_url?result[5].secure_url:req.body.tenant_POA_photo;
   const { error } = updateTenantValidator(req.body);
   if (error) return res.status(401).send(error.details[0].message);
   Property.findOneAndUpdate(
@@ -73,6 +84,7 @@ router.patch("/tenant/:id", (req, res) => {
   )
     .then((data) => res.json("updated"))
     .catch((err) => res.json(err));
+  })
 });
 
   

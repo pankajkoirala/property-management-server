@@ -56,69 +56,85 @@ const TenantSchema = mongoose.Schema({
   TenantId: {
     type: Number,
   },
+  tenant_DateOfBirth: {
+    type: Date,
+    required: true,
+  },
+  tenant_GovIdNo: {
+    type: Number,
+    required: true,
+  },
+  tenant_DrivingLicenceNo: {
+    type: Number,
+    required: true,
+  },
   tenant_TradeLicense_photo: {
     type: String,
     required: true,
-  },  tenant_IdentityLetter_photo: {
-    type: String,
-    required: true,
-  },  tenant_SK_Properties_photo: {
-    type: String,
-    required: true,
-  },  tenant_POA_photo: {
+  },
+  tenant_IdentityLetter_photo: {
     type: String,
     required: true,
   },
-
+  tenant_SK_Properties_photo: {
+    type: String,
+    required: true,
+  },
+  tenant_POA_photo: {
+    type: String,
+    required: true,
+  },
 });
 
 const Tenant = mongoose.model("Tenant", TenantSchema);
 
 const createTenantValidator = (payload) => {
   const schema = Joi.object({
-    tenant_phoneNo: Joi.number().required(),
     tenant_firstName: Joi.string().required(),
     tenant_middleName: Joi.string().required(),
-    tenant_email: Joi.string().required(),
     tenant_lastName: Joi.string().required(),
-    TenantId: Joi.number(),
+    tenant_email: Joi.string().required(),
+    tenant_phoneNo: Joi.number().required(),
     street: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
     provience: Joi.string().required(),
     ZipCode: Joi.string().required(),
-    TenantId: Joi.number(),
+    tenant_DateOfBirth: Joi.date().required(),
+    tenant_GovIdNo: Joi.number().required(),
+    tenant_DrivingLicenceNo: Joi.number().required(),
     tenant_photo: Joi.string(),
-    tenant_EId_photo: Joi.string(),
-
     tenant_TradeLicense_photo: Joi.string(),
+    tenant_EId_photo: Joi.string(),
     tenant_IdentityLetter_photo: Joi.string(),
     tenant_SK_Properties_photo: Joi.string(),
     tenant_POA_photo: Joi.string(),
-
-
-
+    TenantId: Joi.number(),
   });
   return schema.validate(payload);
 };
 const updateTenantValidator = (payload) => {
   const schema = Joi.object({
-    tenant_phoneNo: Joi.number().required(),
     tenant_firstName: Joi.string().required(),
     tenant_middleName: Joi.string().required(),
-    tenant_email: Joi.string().required(),
     tenant_lastName: Joi.string().required(),
+    tenant_email: Joi.string().required(),
+    tenant_phoneNo: Joi.number().required(),
     street: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
     provience: Joi.string().required(),
     ZipCode: Joi.string().required(),
+    tenant_DateOfBirth: Joi.date().required(),
+    tenant_GovIdNo: Joi.number().required(),
+    tenant_DrivingLicenceNo: Joi.number().required(),
     tenant_photo: Joi.string(),
-    tenant_EId_photo: Joi.string(),
     tenant_TradeLicense_photo: Joi.string(),
+    tenant_EId_photo: Joi.string(),
     tenant_IdentityLetter_photo: Joi.string(),
     tenant_SK_Properties_photo: Joi.string(),
     tenant_POA_photo: Joi.string(),
+    TenantId: Joi.number(),
   });
   return schema.validate(payload);
 };
