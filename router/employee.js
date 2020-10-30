@@ -54,7 +54,13 @@ router.post("/employee", upload.any(), (req, res) => {
 });
 
 //update to be left to validate
-router.patch("/employee/:id", (req, res) => {
+router.put("/employee/:id",upload.any(),  (req, res) => {
+  if (!req.files) return res.status(401).send(new Error("photo not found"));
+  let uploadedFile = req.files.map((file) =>
+    cloudinary.uploader.upload(file.path)
+  );
+  Promise.all(uploadedFile).then((result) => {
+    req.body.employee_photo = result[0].secure_url?result[0].secure_url:req.body.employee_photo;
   const { error } = updateEmployeeValidator(req.body);
   if (error) return res.status(401).send(error.details[0].message);
   Employee.findOneAndUpdate(
@@ -64,6 +70,7 @@ router.patch("/employee/:id", (req, res) => {
   )
     .then((data) => res.json("updated"))
     .catch((err) => res.json(err));
+  })
 });
 
 //delet router
