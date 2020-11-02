@@ -56,7 +56,14 @@ router.post("/maintananceCompany", upload.any(), (req, res) => {
 });
 
 //update to be left to validate
-router.patch("/maintananceCompany/:id", (req, res) => {
+router.put("/maintananceCompany/:id",upload.any(), (req, res) => {
+  if (!req.files) return res.status(401).send(new Error("photo not found"));
+  let uploadedFile = req.files.map((file) =>
+    cloudinary.uploader.upload(file.path)
+  );
+  Promise.all(uploadedFile).then((result) => {
+    req.body.Company_uploadPhoto = result[0]?result[0].secure_url:req.body.Company_uploadPhoto;
+
   const { error } = updateMaintananceCompanyValidator(req.body);
   if (error) return res.status(401).send(error.details[0].message);
   MaintananceCompany.findOneAndUpdate(
@@ -66,6 +73,7 @@ router.patch("/maintananceCompany/:id", (req, res) => {
   )
     .then((data) => res.json("updated"))
     .catch((err) => res.json(err));
+  })
 });
 
 //delet router

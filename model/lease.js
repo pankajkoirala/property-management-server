@@ -8,6 +8,7 @@ const LeaseSchema = mongoose.Schema({
     {
       issueDate: { type: Date },
       chequeNo: { type: Number },
+      cheque_status:{type:String}
     },
   ],
   photo: {
@@ -88,6 +89,7 @@ const createLeaseValidator = (payload) => {
       Joi.object({
         issueDate: Joi.date(),
         chequeNo: Joi.number(),
+        cheque_status:Joi.string()
       })
     ),
 
@@ -117,6 +119,8 @@ const updateLeaseValidator = (payload) => {
       Joi.object({
         issueDate: Joi.date(),
         chequeNo: Joi.number(),
+        cheque_status:Joi.string()
+
       })
     ),
     tenants: myJoiObjectId(),
