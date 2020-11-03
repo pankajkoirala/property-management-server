@@ -47,10 +47,10 @@ router.post("/lease", upload.any(), (req, res) => {
   );
   Promise.all(uploadedFile).then((result) => {
     req.body.photo = result[0].secure_url;
-    req.body.LeaseId = (Math.random() * 900000).toFixed(0);
     req.body.chequeList=JSON.parse(req.body.chequeList)
     req.body.property=JSON.parse(req.body.property)
-
+    req.body.LeaseId = (Math.random() * 900000).toFixed(0);
+    
     console.log(req.body.property);
     
     const { error } = createLeaseValidator(req.body);
@@ -63,7 +63,16 @@ router.post("/lease", upload.any(), (req, res) => {
 });
 
 //update to be left to validate
-router.patch("/lease/:id", (req, res) => {
+router.put("/lease/:id", upload.any(),(req, res) => {
+  if (!req.files) return res.status(401).send(new Error("photo not found"));
+  let uploadedFile = req.files.map((file) =>
+  cloudinary.uploader.upload(file.path)
+  );
+  Promise.all(uploadedFile).then((result) => {
+    req.body.photo = result[0]?result[0].secure_url:req.body.photo;
+    req.body.chequeList=JSON.parse(req.body.chequeList)
+    req.body.property=JSON.parse(req.body.property)
+
   const { error } = updateLeaseValidator(req.body);
   if (error) return res.status(401).send(error.details[0].message);
   Property.findOneAndUpdate(
@@ -73,6 +82,7 @@ router.patch("/lease/:id", (req, res) => {
   )
     .then((data) => res.json("updated"))
     .catch((err) => res.json(err));
+  })
 });
 
 //delet router

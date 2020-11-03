@@ -59,6 +59,9 @@ app.use("/api",ManagementCompanyRouter)
 const EmployeeRouter=require("./router/employee")
 app.use("/api",EmployeeRouter)
 
+// cheque
+const ChequeRouter=require("./router/cheque")
+app.use("/api",ChequeRouter)
 // routes
 app.get("/",(req,res)=>{
     res.send("we are on home");

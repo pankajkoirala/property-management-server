@@ -3,8 +3,8 @@ const app=express()
 const path = require("path");
 const router = express.Router();
 const {
- Property,createPropertyValidator,updatePropertyValidator
-} = require("../model/property");
+
+updateChequeValidator,Cheque,createChequeValidator} = require("../model/cheque");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const auth=require("../middleware/middleware")
@@ -25,31 +25,29 @@ const upload = multer({
 });
 
 //get all
-router.get("/property",(req,res)=>{
-  Property.find().then((Data)=>res.json(Data)).catch((err)=>res.json(err))
+router.get("/cheque",(req,res)=>{
+    Cheque.find().populate('lease_property').then((Data)=>res.json(Data)).catch((err)=>res.json(err))
 })
 
 
 //get by id
-router.get("/property/:id",(req,res)=>{
-  Property.findById({_id:req.params.id}).then((data) => res.json(data))
+router.get("/cheque/:id",(req,res)=>{
+    Cheque.findById({_id:req.params.id}).then((data) => res.json(data))
   .catch((err) => res.json(err));
 })
 
 
 //post router
-router.post("/property", upload.any(), (req, res) => {
+router.post("/cheque", upload.any(), (req, res) => {
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
   Promise.all(uploadedFile).then((result)=>{
-    req.body.Title_Deed_Photo = result[0].secure_url;
-    req.body.photo = result[1].secure_url;
-    req.body.referenceNO=(Math.random() * 900000).toFixed(0)
+    req.body.cheque_picture = result[0].secure_url;
     //validator of schema
-    const { error } = createPropertyValidator(req.body);
+    const { error } = createChequeValidator(req.body);
     if (error) return res.status(401).send(error);
-    let propertyData = new Property(req.body);
-    propertyData
+    let ChequeData = new Cheque(req.body);
+    ChequeData
       .save()
       .then((data) => res.send(data))
       .catch((err) => res.json({ messege: err }));
@@ -58,18 +56,17 @@ router.post("/property", upload.any(), (req, res) => {
 
 //update to be left to validate
 
-router.put("/property/:id",upload.any(), (req, res) => {
-  console.log(req.body);
+router.put("/cheque/:id",upload.any(), (req, res) => {
  
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile= req.files.map((file)=>cloudinary.uploader.upload(file.path))
   Promise.all(uploadedFile).then((result)=>{
-    req.body.Title_Deed_Photo = result[0]?result[0].secure_url:req.body.Title_Deed_Photo;
-    req.body.photo =result[0]?result[1].secure_url:req.body.photo;
+    req.body.cheque_picture = result[0]? result[0].secure_url: req.body.cheque_picture;
+ 
 
-  const { error } = updatePropertyValidator(req.body);
+  const { error } = updateChequeValidator(req.body);
   if (error) return res.status(401).send(error.details[0].message);
-  Property.findByIdAndUpdate(
+  Cheque.findByIdAndUpdate(
     { _id: req.params.id },
     { $set: req.body },
     { new: true }
@@ -81,8 +78,8 @@ router.put("/property/:id",upload.any(), (req, res) => {
 
   
 //delet router
-router.delete("/property/:id",(req,res)=>{
-  Property.remove({_id:req.params.id})
+router.delete("/cheque/:id",(req,res)=>{
+    Cheque.remove({_id:req.params.id})
   .then((data) => res.json("data deleted"))
   .catch((err) => res.json(err));
 })

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
-const { string } = require("joi");
+const { object } = require("joi");
 
 const PropertySchema = mongoose.Schema({
   property_type: {
@@ -11,11 +11,6 @@ const PropertySchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  property_status: {
-    type: String,
-    required: true,
-  },
-
 
   street: {
     type: String,
@@ -146,6 +141,17 @@ const PropertySchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  Parking_1: {
+    type: String,
+    required: true,
+  },Parking_2: {
+    type: String,
+    required: true,
+  },Parking_3: {
+    type: String,
+    required: true,
+  },
+
   Title_Deed_Photo: {
     type: String,
    // required: true,
@@ -162,7 +168,6 @@ const createPropertyValidator = (payload) => {
   const schema = Joi.object({
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
-    property_status: Joi.string().required(),
     street: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
@@ -197,6 +202,11 @@ const createPropertyValidator = (payload) => {
     Title_Deed_Photo: Joi.string(),
     Muncipality_Number: Joi.number().required(),
     Property_Area: Joi.number().required(),
+    Parking_1: Joi.string().required(),
+    Parking_2: Joi.string().required(),
+    Parking_3: Joi.string().required(),
+
+
   });
   
 
@@ -206,7 +216,6 @@ const updatePropertyValidator = (payload) => {
   const schema = Joi.object({
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
-    property_status: Joi.string().required(),
     street: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
@@ -241,6 +250,9 @@ const updatePropertyValidator = (payload) => {
     Property_Area: Joi.number().required(),
     Title_Deed_Photo: Joi.string(),
     photo: Joi.string(),
+    Parking_1: Joi.string().required(),
+    Parking_2: Joi.string().required(),
+    Parking_3: Joi.string().required(),
   });
   return schema.validate(payload);
 };

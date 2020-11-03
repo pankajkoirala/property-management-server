@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
-const JoiObjectId = require("joi-objectid");
-const myJoiObjectId = JoiObjectId(Joi);
+
 
 const LeaseSchema = mongoose.Schema({
   chequeList: [
