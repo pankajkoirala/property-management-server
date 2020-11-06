@@ -63,6 +63,10 @@ app.use("/api", ChequeRouter);
 const DevelopementCompanyRouter = require("./router/Developer_company");
 app.use("/api", DevelopementCompanyRouter);
 
+// mantainance ticket company
+const MaintananceTicketRouter = require("./router/maintananceTicket");
+app.use("/api", MaintananceTicketRouter);
+
 // routes
 app.get("/", (req, res) => {
   res.send("we are on home");
