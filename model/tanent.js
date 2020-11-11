@@ -7,15 +7,12 @@ const TenantSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  tenant_firstName: {
+  tenant_Name: {
     type: String,
     required: true,
   },
-  tenant_middleName: {
-    type: String,
-    required: true,
-  },
-  tenant_lastName: {
+
+  company_Name: {
     type: String,
     required: true,
   },
@@ -24,7 +21,7 @@ const TenantSchema = mongoose.Schema({
     required: true,
   },
 
-  street: {
+  area: {
     type: String,
     required: true,
   },
@@ -32,19 +29,12 @@ const TenantSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  provience: {
-    type: String,
-    required: true,
-  },
+
   country: {
     type: String,
     required: true,
   },
 
-  ZipCode: {
-    type: Number,
-    required: true,
-  },
   tenant_photo: {
     type: String,
     required: true,
@@ -56,7 +46,7 @@ const TenantSchema = mongoose.Schema({
   TenantId: {
     type: Number,
   },
-  tenant_DateOfBirth: {
+  DateOfBirth_registrationDate: {
     type: Date,
     required: true,
   },
@@ -90,17 +80,15 @@ const Tenant = mongoose.model("Tenant", TenantSchema);
 
 const createTenantValidator = (payload) => {
   const schema = Joi.object({
-    tenant_firstName: Joi.string().required(),
-    tenant_middleName: Joi.string().required(),
-    tenant_lastName: Joi.string().required(),
+    tenant_Name: Joi.string().required(),
+    company_Name: Joi.string().required(),
     tenant_email: Joi.string().required(),
     tenant_phoneNo: Joi.number().required(),
-    street: Joi.string().required(),
+    area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-    provience: Joi.string().required(),
-    ZipCode: Joi.string().required(),
-    tenant_DateOfBirth: Joi.date().required(),
+
+    DateOfBirth_registrationDate: Joi.date().required(),
     tenant_GovIdNo: Joi.number().required(),
     tenant_DrivingLicenceNo: Joi.number().required(),
     tenant_photo: Joi.string(),
@@ -115,17 +103,15 @@ const createTenantValidator = (payload) => {
 };
 const updateTenantValidator = (payload) => {
   const schema = Joi.object({
-    tenant_firstName: Joi.string().required(),
-    tenant_middleName: Joi.string().required(),
-    tenant_lastName: Joi.string().required(),
+    tenant_Name: Joi.string().required(),
+    company_Name: Joi.string().required(),
     tenant_email: Joi.string().required(),
     tenant_phoneNo: Joi.number().required(),
-    street: Joi.string().required(),
+    area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-    provience: Joi.string().required(),
-    ZipCode: Joi.string().required(),
-    tenant_DateOfBirth: Joi.date().required(),
+
+    DateOfBirth_registrationDate: Joi.date().required(),
     tenant_GovIdNo: Joi.number().required(),
     tenant_DrivingLicenceNo: Joi.number().required(),
     tenant_photo: Joi.string(),

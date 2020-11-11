@@ -4,18 +4,18 @@ const JoiObjectId = require("joi-objectid");
 const myJoiObjectId = JoiObjectId(Joi);
 const { object } = require("joi");
 
-
 const LeaseSchema = mongoose.Schema({
-  chequeList: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "Cheque",
-    },
-  ],
+  // chequeList: [
+  //   {
+  //     type: mongoose.Schema.ObjectId,
+  //     ref: "Cheque",
+  //   },
+  // ],
   photo: {
     type: String,
     required: true,
   },
+
   lease_enterDate: {
     type: Date,
     required: true,
@@ -47,18 +47,6 @@ const LeaseSchema = mongoose.Schema({
     required: true,
   },
 
-  gracePeriod: {
-    type: Number,
-    required: true,
-  },
-  late_feeType: {
-    type: String,
-    required: true,
-  },
-  lateFeeAmount: {
-    type: Number,
-    required: true,
-  },
   securityDeposite: {
     type: Number,
     required: true,
@@ -70,12 +58,11 @@ const LeaseSchema = mongoose.Schema({
   LeaseId: {
     type: Number,
   },
-  property: 
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "Property",
-    },
-  
+  property: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Property",
+  },
+
   tenants: {
     type: mongoose.Schema.ObjectId,
     ref: "Tenant",
@@ -86,14 +73,12 @@ const Lease = mongoose.model("Lease", LeaseSchema);
 
 const createLeaseValidator = (payload) => {
   const schema = Joi.object({
-    chequeList: Joi.array().items(myJoiObjectId()),
+    // chequeList: Joi.array().items(myJoiObjectId()),
     tenants: myJoiObjectId(),
     lease_Term: Joi.string().required(),
     frequency: Joi.string().required(),
-    late_feeType: Joi.string().required(),
     rentAmount: Joi.number().required(),
-    gracePeriod: Joi.number().required(),
-    lateFeeAmount: Joi.number().required(),
+
     securityDeposite: Joi.number().required(),
     LeaseId: Joi.number(),
     lease_enterDate: Joi.date().required(),
@@ -109,15 +94,12 @@ const createLeaseValidator = (payload) => {
 };
 const updateLeaseValidator = (payload) => {
   const schema = Joi.object({
-    chequeList: Joi.array().items(myJoiObjectId()),
+    // chequeList: Joi.array().items(myJoiObjectId()),
 
     tenants: myJoiObjectId(),
     lease_Term: Joi.string().required(),
     frequency: Joi.string().required(),
-    late_feeType: Joi.string().required(),
     rentAmount: Joi.number().required(),
-    gracePeriod: Joi.number().required(),
-    lateFeeAmount: Joi.number().required(),
     securityDeposite: Joi.number().required(),
     LeaseId: Joi.number(),
     lease_enterDate: Joi.date().required(),
@@ -125,7 +107,7 @@ const updateLeaseValidator = (payload) => {
     expirationDate: Joi.date().required(),
     firstDueDate: Joi.date().required(),
     securityfirstDueDate: Joi.date().required(),
-    property:myJoiObjectId(),
+    property: myJoiObjectId(),
     photo: Joi.string(),
   });
   return schema.validate(payload);

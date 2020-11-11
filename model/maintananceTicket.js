@@ -21,6 +21,11 @@ const MaintananceTicketSchema = mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "maintananceCompany",
   },
+  managementCompanyId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "managementCompany",
+  },
+
   MaintananceCompanyDetailInfo: {
     type: String,
     required: true,
@@ -42,6 +47,8 @@ const CreateMaintananceTicketValidator = (payload) => {
     maintananceTicketDueDate: Joi.date().required(),
     MaintanancePropertyID: myJoiObjectId(),
     MaintananceCompanyId: myJoiObjectId(),
+    managementCompanyId: myJoiObjectId(),
+
     MaintananceCompanyDetailInfo: Joi.string().required(),
     maintananceTicket_ID: Joi.number(),
   });
@@ -53,6 +60,7 @@ const updateMaintananceTicketValidator = (payload) => {
     maintananceTicketDueDate: Joi.date().required(),
     MaintanancePropertyID: myJoiObjectId(),
     MaintananceCompanyId: myJoiObjectId(),
+    managementCompanyId: myJoiObjectId(),
     MaintananceCompanyDetailInfo: Joi.string().required(),
     maintananceTicket_ID: Joi.number(),
   });

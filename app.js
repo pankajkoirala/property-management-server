@@ -67,6 +67,14 @@ app.use("/api", DevelopementCompanyRouter);
 const MaintananceTicketRouter = require("./router/maintananceTicket");
 app.use("/api", MaintananceTicketRouter);
 
+// expense company
+const ExpenseRouter = require("./router/expense");
+app.use("/api", ExpenseRouter);
+
+// owner
+const OwnerRouter = require("./router/owner");
+app.use("/api", OwnerRouter);
+
 // routes
 app.get("/", (req, res) => {
   res.send("we are on home");

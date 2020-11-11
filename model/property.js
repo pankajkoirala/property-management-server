@@ -3,6 +3,14 @@ const Joi = require("joi");
 const { object } = require("joi");
 
 const PropertySchema = mongoose.Schema({
+  facilities: [
+    {
+      heading: { type: String },
+      unit: { type: Number },
+      remark: { type: String },
+      facilitiesId: { type: String },
+    },
+  ],
   property_type: {
     type: String,
     required: true,
@@ -12,7 +20,7 @@ const PropertySchema = mongoose.Schema({
     required: true,
   },
 
-  street: {
+  area: {
     type: String,
     required: true,
   },
@@ -25,89 +33,8 @@ const PropertySchema = mongoose.Schema({
     required: true,
   },
 
-  bedroomArea: {
-    type: Number,
-    required: true,
-  },
-  kitchenArea: {
-    type: Number,
-    required: true,
-  },
-  hallArea: {
-    type: Number,
-    required: true,
-  },
-  bathroomArea: {
-    type: Number,
-    required: true,
-  },
   referenceNO: {
     type: Number,
-  },
-  NoOfBathroom: {
-    type: Number,
-    required: true,
-  },
-  NoOfHall: {
-    type: Number,
-    required: true,
-  },
-  NoOfKitchen: {
-    type: Number,
-    required: true,
-  },
-  NoOfbedroom: {
-    type: Number,
-    required: true,
-  },
-  bathroomRemark: {
-    type: String,
-    required: true,
-  },
-  hallRemark: {
-    type: String,
-    required: true,
-  },
-  bedroomRemark: {
-    type: String,
-    required: true,
-  },
-  kitchenRemark: {
-    type: String,
-    required: true,
-  },
-  Parking: {
-    type: String,
-    required: true,
-  },
-  Swimming: {
-    type: String,
-    required: true,
-  },
-  Smoking: {
-    type: String,
-    required: true,
-  },
-  PetAllowed: {
-    type: String,
-    required: true,
-  },
-  Garden: {
-    type: String,
-    required: true,
-  },
-  //down
-  Balcony_Area: {
-    type: Number,
-    required: true,
-  },
-  NoOfBalcony: {
-    type: Number,
-    required: true,
-  },
-  BalconyRemark: {
-    type: String,
-    required: true,
   },
   property_community: {
     type: String,
@@ -137,24 +64,18 @@ const PropertySchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  Property_Premise_Number: {
+  Parking_Number: {
     type: Number,
     required: true,
   },
-  Parking_1: {
-    type: String,
-    required: true,
-  },Parking_2: {
-    type: String,
-    required: true,
-  },Parking_3: {
-    type: String,
+  Property_Premise_Number: {
+    type: Number,
     required: true,
   },
 
   Title_Deed_Photo: {
     type: String,
-   // required: true,
+    // required: true,
   },
   photo: {
     type: String,
@@ -166,33 +87,23 @@ const Property = mongoose.model("Property", PropertySchema);
 
 const createPropertyValidator = (payload) => {
   const schema = Joi.object({
+    facilities: Joi.array().items(
+      Joi.object({
+        heading: Joi.string(),
+        unit: Joi.number(),
+        remark: Joi.string(),
+
+        facilitiesId: Joi.string(),
+      })
+    ),
+    Parking_Number: Joi.number().required(),
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
-    street: Joi.string().required(),
+    area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
     photo: Joi.string(),
     referenceNO: Joi.number(),
-    Parking: Joi.string().required(),
-    Swimming: Joi.string().required(),
-    Smoking: Joi.string().required(),
-    PetAllowed: Joi.string().required(),
-    Garden: Joi.string().required(),
-    kitchenRemark: Joi.string().required(),
-    bedroomRemark: Joi.string().required(),
-    hallRemark: Joi.string().required(),
-    bathroomRemark: Joi.string().required(),
-    bedroomArea: Joi.number().required(),
-    kitchenArea: Joi.number().required(),
-    hallArea: Joi.number().required(),
-    bathroomArea: Joi.number().required(),
-    NoOfBathroom: Joi.number().required(),
-    NoOfHall: Joi.number().required(),
-    NoOfKitchen: Joi.number().required(),
-    NoOfbedroom: Joi.number().required(),
-    Balcony_Area: Joi.number().required(),
-    NoOfBalcony: Joi.number().required(),
-    BalconyRemark: Joi.string().required(),
     property_community: Joi.string().required(),
     building_Name: Joi.string().required(),
     building_Number: Joi.number().required(),
@@ -202,57 +113,38 @@ const createPropertyValidator = (payload) => {
     Title_Deed_Photo: Joi.string(),
     Muncipality_Number: Joi.number().required(),
     Property_Area: Joi.number().required(),
-    Parking_1: Joi.string().required(),
-    Parking_2: Joi.string().required(),
-    Parking_3: Joi.string().required(),
-
-
   });
-  
 
   return schema.validate(payload);
 };
 const updatePropertyValidator = (payload) => {
   const schema = Joi.object({
+    facilities: Joi.array().items(
+      Joi.object({
+        heading: Joi.string(),
+        unit: Joi.number(),
+        remark: Joi.string(),
+
+        facilitiesId: Joi.string(),
+      })
+    ),
+    Parking_Number: Joi.number().required(),
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
-    street: Joi.string().required(),
+    area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
+    photo: Joi.string(),
     referenceNO: Joi.number(),
-    Parking: Joi.string().required(),
-    Swimming: Joi.string().required(),
-    Smoking: Joi.string().required(),
-    PetAllowed: Joi.string().required(),
-    Garden: Joi.string().required(),
-    kitchenRemark: Joi.string().required(),
-    bedroomRemark: Joi.string().required(),
-    hallRemark: Joi.string().required(),
-    bathroomRemark: Joi.string().required(),
-    bedroomArea: Joi.number().required(),
-    kitchenArea: Joi.number().required(),
-    hallArea: Joi.number().required(),
-    bathroomArea: Joi.number().required(),
-    NoOfBathroom: Joi.number().required(),
-    NoOfHall: Joi.number().required(),
-    NoOfKitchen: Joi.number().required(),
-    NoOfbedroom: Joi.number().required(),
-    Balcony_Area: Joi.number().required(),
-    NoOfBalcony: Joi.number().required(),
-    BalconyRemark: Joi.string().required(),
     property_community: Joi.string().required(),
     building_Name: Joi.string().required(),
     building_Number: Joi.number().required(),
     plot_Number: Joi.number().required(),
     building_floorNumber: Joi.number().required(),
     Property_Premise_Number: Joi.number().required(),
+    Title_Deed_Photo: Joi.string(),
     Muncipality_Number: Joi.number().required(),
     Property_Area: Joi.number().required(),
-    Title_Deed_Photo: Joi.string(),
-    photo: Joi.string(),
-    Parking_1: Joi.string().required(),
-    Parking_2: Joi.string().required(),
-    Parking_3: Joi.string().required(),
   });
   return schema.validate(payload);
 };
