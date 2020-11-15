@@ -3,6 +3,12 @@ const Joi = require("joi");
 const { object } = require("joi");
 
 const TenantSchema = mongoose.Schema({
+  files_list: [
+    {
+      fileName: { type: String },
+      file: { type: String },
+    },
+  ],
   tenant_phoneNo: {
     type: Number,
     required: true,
@@ -35,14 +41,6 @@ const TenantSchema = mongoose.Schema({
     required: true,
   },
 
-  tenant_photo: {
-    type: String,
-    required: true,
-  },
-  tenant_EId_photo: {
-    type: String,
-    required: true,
-  },
   TenantId: {
     type: Number,
   },
@@ -58,28 +56,18 @@ const TenantSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  tenant_TradeLicense_photo: {
-    type: String,
-    required: true,
-  },
-  tenant_IdentityLetter_photo: {
-    type: String,
-    required: true,
-  },
-  tenant_SK_Properties_photo: {
-    type: String,
-    required: true,
-  },
-  tenant_POA_photo: {
-    type: String,
-    required: true,
-  },
 });
 
 const Tenant = mongoose.model("Tenant", TenantSchema);
 
 const createTenantValidator = (payload) => {
   const schema = Joi.object({
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+      })
+    ),
     tenant_Name: Joi.string().required(),
     company_Name: Joi.string().required(),
     tenant_email: Joi.string().required(),
@@ -91,18 +79,20 @@ const createTenantValidator = (payload) => {
     DateOfBirth_registrationDate: Joi.date().required(),
     tenant_GovIdNo: Joi.number().required(),
     tenant_DrivingLicenceNo: Joi.number().required(),
-    tenant_photo: Joi.string(),
-    tenant_TradeLicense_photo: Joi.string(),
-    tenant_EId_photo: Joi.string(),
-    tenant_IdentityLetter_photo: Joi.string(),
-    tenant_SK_Properties_photo: Joi.string(),
-    tenant_POA_photo: Joi.string(),
+
     TenantId: Joi.number(),
   });
   return schema.validate(payload);
 };
 const updateTenantValidator = (payload) => {
   const schema = Joi.object({
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+        _id: Joi.string(),
+      })
+    ),
     tenant_Name: Joi.string().required(),
     company_Name: Joi.string().required(),
     tenant_email: Joi.string().required(),
@@ -114,12 +104,7 @@ const updateTenantValidator = (payload) => {
     DateOfBirth_registrationDate: Joi.date().required(),
     tenant_GovIdNo: Joi.number().required(),
     tenant_DrivingLicenceNo: Joi.number().required(),
-    tenant_photo: Joi.string(),
-    tenant_TradeLicense_photo: Joi.string(),
-    tenant_EId_photo: Joi.string(),
-    tenant_IdentityLetter_photo: Joi.string(),
-    tenant_SK_Properties_photo: Joi.string(),
-    tenant_POA_photo: Joi.string(),
+
     TenantId: Joi.number(),
   });
   return schema.validate(payload);

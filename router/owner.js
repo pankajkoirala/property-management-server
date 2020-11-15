@@ -39,7 +39,7 @@ router.get("/owner/:id", (req, res) => {
 //post router
 router.post("/upload", upload.any(), (req, res) => {
   console.log(req.files);
-  console.log(req.body.a);
+  console.log(req.body);
   // if (!req.files) return res.status(401).send(new Error("photo not found"));
   // let uploadedFile = req.files.map((file) =>
   // cloudinary.uploader.upload(file.path)

@@ -14,10 +14,7 @@ const auth = require("../middleware/middleware");
 //multer config
 const storage = multer.diskStorage({
   filename: (req, file, cb) => {
-    cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
+    cb(null, `${file.fieldname}`);
   },
 });
 const upload = multer({
@@ -47,8 +44,9 @@ router.post("/property", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.Title_Deed_Photo = result[0].secure_url;
-    req.body.photo = result[1].secure_url;
+    req.body.files_list = result.map((photo) => {
+      return { fileName: photo.original_filename, file: photo.secure_url };
+    });
     req.body.referenceNO = (Math.random() * 900000).toFixed(0);
     //validator of schema
     const { error } = createPropertyValidator(req.body);
@@ -64,6 +62,7 @@ router.post("/property", upload.any(), (req, res) => {
 //update to be left to validate
 
 router.put("/property/:id", upload.any(), (req, res) => {
+  console.log(req.body);
   req.body.facilities = JSON.parse(req.body.facilities);
 
   if (!req.files) return res.status(401).send(new Error("photo not found"));
@@ -71,10 +70,11 @@ router.put("/property/:id", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.Title_Deed_Photo = result[0]
-      ? result[0].secure_url
-      : req.body.Title_Deed_Photo;
-    req.body.photo = result[0] ? result[1].secure_url : req.body.photo;
+    req.body.files_list = result[0]
+      ? result.map((photo) => {
+          return { fileName: photo.original_filename, file: photo.secure_url };
+        })
+      : JSON.parse(req.body.files_list);
 
     const { error } = updatePropertyValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);

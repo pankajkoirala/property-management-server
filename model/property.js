@@ -11,6 +11,12 @@ const PropertySchema = mongoose.Schema({
       facilitiesId: { type: String },
     },
   ],
+  files_list: [
+    {
+      fileName: { type: String },
+      file: { type: String },
+    },
+  ],
   property_type: {
     type: String,
     required: true,
@@ -72,14 +78,9 @@ const PropertySchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-
-  Title_Deed_Photo: {
+  Property_ownerName: {
     type: String,
-    // required: true,
-  },
-  photo: {
-    type: String,
-    //required: true,
+    required: true,
   },
 });
 
@@ -96,13 +97,19 @@ const createPropertyValidator = (payload) => {
         facilitiesId: Joi.string(),
       })
     ),
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+      })
+    ),
     Parking_Number: Joi.number().required(),
+    Property_ownerName: Joi.string().required(),
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
     area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-    photo: Joi.string(),
     referenceNO: Joi.number(),
     property_community: Joi.string().required(),
     building_Name: Joi.string().required(),
@@ -110,7 +117,6 @@ const createPropertyValidator = (payload) => {
     plot_Number: Joi.number().required(),
     building_floorNumber: Joi.number().required(),
     Property_Premise_Number: Joi.number().required(),
-    Title_Deed_Photo: Joi.string(),
     Muncipality_Number: Joi.number().required(),
     Property_Area: Joi.number().required(),
   });
@@ -126,15 +132,23 @@ const updatePropertyValidator = (payload) => {
         remark: Joi.string(),
 
         facilitiesId: Joi.string(),
+        _id: Joi.string(),
       })
     ),
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+        _id: Joi.string(),
+      })
+    ),
+    Property_ownerName: Joi.string().required(),
     Parking_Number: Joi.number().required(),
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
     area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-    photo: Joi.string(),
     referenceNO: Joi.number(),
     property_community: Joi.string().required(),
     building_Name: Joi.string().required(),
@@ -142,7 +156,6 @@ const updatePropertyValidator = (payload) => {
     plot_Number: Joi.number().required(),
     building_floorNumber: Joi.number().required(),
     Property_Premise_Number: Joi.number().required(),
-    Title_Deed_Photo: Joi.string(),
     Muncipality_Number: Joi.number().required(),
     Property_Area: Joi.number().required(),
   });
