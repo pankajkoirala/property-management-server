@@ -3,7 +3,7 @@ const Joi = require("joi");
 const { object } = require("joi");
 
 const MaintananceCompanySchema = mongoose.Schema({
-    Company_street: {
+  Company_area: {
     type: String,
     required: true,
   },
@@ -11,16 +11,9 @@ const MaintananceCompanySchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  Company_provience: {
-    type: String,
-    required: true,
-  },
+
   Company_country: {
     type: String,
-    required: true,
-  },
-  Company_ZipCode: {
-    type: Number,
     required: true,
   },
 
@@ -56,11 +49,12 @@ const MaintananceCompanySchema = mongoose.Schema({
   Company_ID: {
     type: Number,
   },
- 
-
 });
 
-const MaintananceCompany = mongoose.model("maintananceCompany", MaintananceCompanySchema);
+const MaintananceCompany = mongoose.model(
+  "maintananceCompany",
+  MaintananceCompanySchema
+);
 
 const CreateMaintananceCompanyValidator = (payload) => {
   const schema = Joi.object({
@@ -71,13 +65,10 @@ const CreateMaintananceCompanyValidator = (payload) => {
     Company_Registration_Number: Joi.number().required(),
     Company_phoneNo: Joi.number().required(),
     Company_uploadPhoto: Joi.string().required(),
-    Company_ZipCode: Joi.number().required(),
     Company_country: Joi.string().required(),
-    Company_provience: Joi.string().required(),
     Company_city: Joi.string().required(),
-    Company_street: Joi.string().required(),
+    Company_area: Joi.string().required(),
     Company_ID: Joi.number(),
-
   });
   return schema.validate(payload);
 };
@@ -90,17 +81,15 @@ const updateMaintananceCompanyValidator = (payload) => {
     Company_Registration_Number: Joi.number().required(),
     Company_phoneNo: Joi.number().required(),
     Company_uploadPhoto: Joi.string().required(),
-    Company_ZipCode: Joi.number().required(),
     Company_country: Joi.string().required(),
-    Company_provience: Joi.string().required(),
     Company_city: Joi.string().required(),
-    Company_street: Joi.string().required(),
+    Company_area: Joi.string().required(),
     Company_ID: Joi.number(),
   });
   return schema.validate(payload);
 };
 module.exports = {
-    MaintananceCompany,
-    CreateMaintananceCompanyValidator,
-    updateMaintananceCompanyValidator,
+  MaintananceCompany,
+  CreateMaintananceCompanyValidator,
+  updateMaintananceCompanyValidator,
 };

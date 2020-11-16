@@ -3,7 +3,7 @@ const Joi = require("joi");
 const { object } = require("joi");
 
 const ManagementCompanySchema = mongoose.Schema({
-  managementCompany_street: {
+  managementCompany_area: {
     type: String,
     required: true,
   },
@@ -11,16 +11,9 @@ const ManagementCompanySchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  managementCompany_provience: {
-    type: String,
-    required: true,
-  },
+
   managementCompany_country: {
     type: String,
-    required: true,
-  },
-  managementCompany_ZipCode: {
-    type: Number,
     required: true,
   },
 
@@ -63,14 +56,11 @@ const ManagementCompany = mongoose.model(
   ManagementCompanySchema
 );
 
-
 const CreateManagementCompanyValidator = (payload) => {
   const schema = Joi.object({
-    managementCompany_street: Joi.string().required(),
+    managementCompany_area: Joi.string().required(),
     managementCompany_city: Joi.string().required(),
-    managementCompany_provience: Joi.string().required(),
     managementCompany_country: Joi.string().required(),
-    managementCompany_ZipCode: Joi.number().required(),
     managementCompany_photo: Joi.string().required(),
     managementCompany_phoneNo: Joi.number().required(),
     managementCompany_Registeration_Number: Joi.number().required(),
@@ -84,11 +74,9 @@ const CreateManagementCompanyValidator = (payload) => {
 };
 const updateManagementCompanyValidator = (payload) => {
   const schema = Joi.object({
-    managementCompany_street: Joi.string().required(),
+    managementCompany_area: Joi.string().required(),
     managementCompany_city: Joi.string().required(),
-    managementCompany_provience: Joi.string().required(),
     managementCompany_country: Joi.string().required(),
-    managementCompany_ZipCode: Joi.number().required(),
     managementCompany_photo: Joi.string().required(),
     managementCompany_phoneNo: Joi.number().required(),
     managementCompany_Registeration_Number: Joi.number().required(),
@@ -101,7 +89,7 @@ const updateManagementCompanyValidator = (payload) => {
   return schema.validate(payload);
 };
 module.exports = {
-    ManagementCompany,
+  ManagementCompany,
   CreateManagementCompanyValidator,
   updateManagementCompanyValidator,
 };

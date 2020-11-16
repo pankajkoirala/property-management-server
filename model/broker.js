@@ -3,7 +3,7 @@ const Joi = require("joi");
 const { object } = require("joi");
 
 const BrokerSchema = mongoose.Schema({
-    broker_phoneNo: {
+  broker_phoneNo: {
     type: Number,
     required: true,
   },
@@ -24,7 +24,7 @@ const BrokerSchema = mongoose.Schema({
     required: true,
   },
 
-  street: {
+  area: {
     type: String,
     required: true,
   },
@@ -32,19 +32,12 @@ const BrokerSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  provience: {
-    type: String,
-    required: true,
-  },
+
   country: {
     type: String,
     required: true,
   },
 
-  ZipCode: {
-    type: Number,
-    required: true,
-  },
   broker_photo: {
     type: String,
     required: true,
@@ -52,8 +45,6 @@ const BrokerSchema = mongoose.Schema({
   brokerId: {
     type: Number,
   },
- 
-
 });
 
 const Broker = mongoose.model("broker", BrokerSchema);
@@ -66,16 +57,10 @@ const createBrokerValidator = (payload) => {
     broker_companyRegisterDate: Joi.date().required(),
     broker_email: Joi.string().required(),
     brokerId: Joi.number(),
-    street: Joi.string().required(),
+    area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-    provience: Joi.string().required(),
-    ZipCode: Joi.string().required(),
     broker_photo: Joi.string(),
-
-
-
-
   });
   return schema.validate(payload);
 };
@@ -87,17 +72,16 @@ const updateBrokerValidator = (payload) => {
     broker_companyRegisterDate: Joi.date().required(),
     broker_email: Joi.string().required(),
     brokerId: Joi.number(),
-    street: Joi.string().required(),
+    area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-    provience: Joi.string().required(),
-    ZipCode: Joi.string().required(),
+
     broker_photo: Joi.string(),
   });
   return schema.validate(payload);
 };
 module.exports = {
-    Broker,
-    createBrokerValidator,
+  Broker,
+  createBrokerValidator,
   updateBrokerValidator,
 };

@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 const { object } = require("joi");
 
-
 const EmployeeSchema = mongoose.Schema({
-    employee_street: {
+  employee_area: {
     type: String,
     required: true,
   },
@@ -12,16 +11,13 @@ const EmployeeSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  employee_provience: {
-    type: String,
-    required: true,
-  },
+
   employee_country: {
     type: String,
     required: true,
   },
-  employee_ZipCode: {
-    type: Number,
+  employee_DOB: {
+    type: Date,
     required: true,
   },
 
@@ -58,20 +54,14 @@ const EmployeeSchema = mongoose.Schema({
   },
 });
 
-const Employee = mongoose.model(
-  "employee",
-  EmployeeSchema
-);
-
-
+const Employee = mongoose.model("employee", EmployeeSchema);
 
 const CreateEmployeeValidator = (payload) => {
   const schema = Joi.object({
-    employee_street: Joi.string().required(),
+    employee_area: Joi.string().required(),
     employee_city: Joi.string().required(),
-    employee_provience: Joi.string().required(),
     employee_country: Joi.string().required(),
-    employee_ZipCode: Joi.number().required(),
+    employee_DOB: Joi.date().required(),
     employee_photo: Joi.string().required(),
     employee_phoneNo: Joi.number().required(),
     employee_firstName: Joi.string().required(),
@@ -85,11 +75,10 @@ const CreateEmployeeValidator = (payload) => {
 };
 const updateEmployeeValidator = (payload) => {
   const schema = Joi.object({
-    employee_street: Joi.string().required(),
+    employee_area: Joi.string().required(),
     employee_city: Joi.string().required(),
-    employee_provience: Joi.string().required(),
     employee_country: Joi.string().required(),
-    employee_ZipCode: Joi.number().required(),
+    employee_DOB: Joi.date().required(),
     employee_photo: Joi.string().required(),
     employee_phoneNo: Joi.number().required(),
     employee_firstName: Joi.string().required(),
@@ -102,7 +91,7 @@ const updateEmployeeValidator = (payload) => {
   return schema.validate(payload);
 };
 module.exports = {
-    Employee,
-    CreateEmployeeValidator,
-    updateEmployeeValidator,
+  Employee,
+  CreateEmployeeValidator,
+  updateEmployeeValidator,
 };
