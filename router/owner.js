@@ -59,14 +59,15 @@ router.post("/owner", upload.any(), (req, res) => {
 
 //update to be left to validate
 router.put("/owner/:id", upload.any(), (req, res) => {
+  console.log(req.body);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.managementCompany_photo = result[0]
+    req.body.owner_photo = result[0]
       ? result[0].secure_url
-      : req.body.managementCompany_photo;
+      : req.body.owner_photo;
     const { error } = updateOwnerValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
     Owner.findOneAndUpdate(
