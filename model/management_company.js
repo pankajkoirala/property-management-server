@@ -17,10 +17,12 @@ const ManagementCompanySchema = mongoose.Schema({
     required: true,
   },
 
-  managementCompany_photo: {
-    type: String,
-    required: true,
-  },
+  files_list: [
+    {
+      fileName: { type: String },
+      file: { type: String },
+    },
+  ],
   managementCompany_phoneNo: {
     type: Number,
     required: true,
@@ -61,7 +63,12 @@ const CreateManagementCompanyValidator = (payload) => {
     managementCompany_area: Joi.string().required(),
     managementCompany_city: Joi.string().required(),
     managementCompany_country: Joi.string().required(),
-    managementCompany_photo: Joi.string().required(),
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+      })
+    ),
     managementCompany_phoneNo: Joi.number().required(),
     managementCompany_Registeration_Number: Joi.number().required(),
     managementCompany_name: Joi.string().required(),
@@ -77,7 +84,13 @@ const updateManagementCompanyValidator = (payload) => {
     managementCompany_area: Joi.string().required(),
     managementCompany_city: Joi.string().required(),
     managementCompany_country: Joi.string().required(),
-    managementCompany_photo: Joi.string().required(),
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+        _id: Joi.string(),
+      })
+    ),
     managementCompany_phoneNo: Joi.number().required(),
     managementCompany_Registeration_Number: Joi.number().required(),
     managementCompany_name: Joi.string().required(),

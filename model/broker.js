@@ -3,6 +3,12 @@ const Joi = require("joi");
 const { object } = require("joi");
 
 const BrokerSchema = mongoose.Schema({
+  files_list: [
+    {
+      fileName: { type: String },
+      file: { type: String },
+    },
+  ],
   broker_phoneNo: {
     type: Number,
     required: true,
@@ -38,10 +44,6 @@ const BrokerSchema = mongoose.Schema({
     required: true,
   },
 
-  broker_photo: {
-    type: String,
-    required: true,
-  },
   brokerId: {
     type: Number,
   },
@@ -51,6 +53,12 @@ const Broker = mongoose.model("broker", BrokerSchema);
 
 const createBrokerValidator = (payload) => {
   const schema = Joi.object({
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+      })
+    ),
     broker_phoneNo: Joi.number().required(),
     broker_RegistrationNumber: Joi.number().required(),
     broker_companyName: Joi.string().required(),
@@ -60,12 +68,18 @@ const createBrokerValidator = (payload) => {
     area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-    broker_photo: Joi.string(),
   });
   return schema.validate(payload);
 };
 const updateBrokerValidator = (payload) => {
   const schema = Joi.object({
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+        _id: Joi.string(),
+      })
+    ),
     broker_phoneNo: Joi.number().required(),
     broker_RegistrationNumber: Joi.number().required(),
     broker_companyName: Joi.string().required(),
@@ -75,8 +89,6 @@ const updateBrokerValidator = (payload) => {
     area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-
-    broker_photo: Joi.string(),
   });
   return schema.validate(payload);
 };

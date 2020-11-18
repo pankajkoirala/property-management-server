@@ -3,6 +3,12 @@ const Joi = require("joi");
 const { object } = require("joi");
 
 const MaintananceCompanySchema = mongoose.Schema({
+  files_list: [
+    {
+      fileName: { type: String },
+      file: { type: String },
+    },
+  ],
   Company_area: {
     type: String,
     required: true,
@@ -17,10 +23,6 @@ const MaintananceCompanySchema = mongoose.Schema({
     required: true,
   },
 
-  Company_uploadPhoto: {
-    type: String,
-    required: true,
-  },
   Company_phoneNo: {
     type: Number,
     required: true,
@@ -58,13 +60,18 @@ const MaintananceCompany = mongoose.model(
 
 const CreateMaintananceCompanyValidator = (payload) => {
   const schema = Joi.object({
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+      })
+    ),
     Company_email: Joi.string().required(),
     Company_Name: Joi.string().required(),
     Company_Mobile_Number: Joi.number().required(),
     Company_Registeration_Date: Joi.date().required(),
     Company_Registration_Number: Joi.number().required(),
     Company_phoneNo: Joi.number().required(),
-    Company_uploadPhoto: Joi.string().required(),
     Company_country: Joi.string().required(),
     Company_city: Joi.string().required(),
     Company_area: Joi.string().required(),
@@ -80,11 +87,17 @@ const updateMaintananceCompanyValidator = (payload) => {
     Company_Registeration_Date: Joi.date().required(),
     Company_Registration_Number: Joi.number().required(),
     Company_phoneNo: Joi.number().required(),
-    Company_uploadPhoto: Joi.string().required(),
     Company_country: Joi.string().required(),
     Company_city: Joi.string().required(),
     Company_area: Joi.string().required(),
     Company_ID: Joi.number(),
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+        _id: Joi.string(),
+      })
+    ),
   });
   return schema.validate(payload);
 };

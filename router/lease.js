@@ -14,10 +14,7 @@ const { leasedata } = require("../assets/sampledataLease");
 //multer config
 const storage = multer.diskStorage({
   filename: (req, file, cb) => {
-    cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
+    cb(null, `${file.fieldname}`);
   },
 });
 const upload = multer({
@@ -46,7 +43,9 @@ router.post("/lease", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.photo = result[0].secure_url;
+    req.body.files_list = result.map((photo) => {
+      return { fileName: photo.original_filename, file: photo.secure_url };
+    });
     req.body.LeaseId = (Math.random() * 900000).toFixed(0);
 
     console.log(req.body.property);
@@ -67,10 +66,15 @@ router.put("/lease/:id", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.photo = result[0] ? result[0].secure_url : req.body.photo;
-
+    req.body.files_list = result[0]
+      ? result.map((photo) => {
+          return { fileName: photo.original_filename, file: photo.secure_url };
+        })
+      : JSON.parse(req.body.files_list);
     const { error } = updateLeaseValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
+    mongoose.set("useFindAndModify", false);
+
     Lease.findOneAndUpdate(
       { _id: req.params.id },
       { $set: req.body },

@@ -13,10 +13,7 @@ const auth = require("../middleware/middleware");
 //multer config
 const storage = multer.diskStorage({
   filename: (req, file, cb) => {
-    cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
+    cb(null, `${file.fieldname}`);
   },
 });
 const upload = multer({
@@ -43,11 +40,14 @@ router.post("/brokerCompany", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.broker_photo = result[0].secure_url;
+    req.body.files_list = result.map((photo) => {
+      return { fileName: photo.original_filename, file: photo.secure_url };
+    });
     req.body.brokerId = (Math.random() * 900000).toFixed(0);
 
     const { error } = createBrokerValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
+
     let TenantData = new Broker(req.body);
     TenantData.save()
       .then((data) => res.json({ messege: data }))
@@ -57,16 +57,22 @@ router.post("/brokerCompany", upload.any(), (req, res) => {
 
 //update to be left to validate
 router.put("/brokerCompany/:id", upload.any(), (req, res) => {
+  console.log(req.body);
+  console.log(req.files);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.broker_photo = result[0]
-      ? result[0].secure_url
-      : req.body.broker_photo;
+    req.body.files_list = result[0]
+      ? result.map((photo) => {
+          return { fileName: photo.original_filename, file: photo.secure_url };
+        })
+      : JSON.parse(req.body.files_list);
     const { error } = updateBrokerValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
+    mongoose.set("useFindAndModify", false);
+
     Broker.findOneAndUpdate(
       { _id: req.params.id },
       { $set: req.body },

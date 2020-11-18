@@ -21,10 +21,12 @@ const EmployeeSchema = mongoose.Schema({
     required: true,
   },
 
-  employee_photo: {
-    type: String,
-    required: true,
-  },
+  files_list: [
+    {
+      fileName: { type: String },
+      file: { type: String },
+    },
+  ],
   employee_phoneNo: {
     type: Number,
     required: true,
@@ -62,7 +64,12 @@ const CreateEmployeeValidator = (payload) => {
     employee_city: Joi.string().required(),
     employee_country: Joi.string().required(),
     employee_DOB: Joi.date().required(),
-    employee_photo: Joi.string().required(),
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+      })
+    ),
     employee_phoneNo: Joi.number().required(),
     employee_firstName: Joi.string().required(),
     employee_middleName: Joi.string(),
@@ -79,7 +86,13 @@ const updateEmployeeValidator = (payload) => {
     employee_city: Joi.string().required(),
     employee_country: Joi.string().required(),
     employee_DOB: Joi.date().required(),
-    employee_photo: Joi.string().required(),
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+        _id: Joi.string(),
+      })
+    ),
     employee_phoneNo: Joi.number().required(),
     employee_firstName: Joi.string().required(),
     employee_middleName: Joi.string(),

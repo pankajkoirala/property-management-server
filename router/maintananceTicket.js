@@ -43,6 +43,8 @@ router.post("/MaintananceTicket", (req, res) => {
 router.put("/MaintananceTicket/:id", (req, res) => {
   const { error } = updateMaintananceTicketValidator(req.body);
   if (error) return res.status(401).send(error.details[0].message);
+  mongoose.set("useFindAndModify", false);
+
   MaintananceTicket.findByIdAndUpdate(
     { _id: req.params.id },
     { $set: req.body },

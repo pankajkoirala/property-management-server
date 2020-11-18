@@ -14,10 +14,7 @@ const { json } = require("body-parser");
 //multer config
 const storage = multer.diskStorage({
   filename: (req, file, cb) => {
-    cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
+    cb(null, `${file.fieldname}`);
   },
 });
 const upload = multer({
@@ -45,7 +42,9 @@ router.post("/owner", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.owner_photo = result[0].secure_url;
+    req.body.files_list = result.map((photo) => {
+      return { fileName: photo.original_filename, file: photo.secure_url };
+    });
     req.body.owner_ID = (Math.random() * 900000).toFixed(0);
     const { error } = CreateOwnerValidator(req.body);
     if (error) return res.status(401).send(error);
@@ -65,11 +64,15 @@ router.put("/owner/:id", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.owner_photo = result[0]
-      ? result[0].secure_url
-      : req.body.owner_photo;
+    req.body.files_list = result[0]
+      ? result.map((photo) => {
+          return { fileName: photo.original_filename, file: photo.secure_url };
+        })
+      : JSON.parse(req.body.files_list);
     const { error } = updateOwnerValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
+    mongoose.set("useFindAndModify", false);
+
     Owner.findOneAndUpdate(
       { _id: req.params.id },
       { $set: req.body },

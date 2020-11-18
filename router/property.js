@@ -78,6 +78,8 @@ router.put("/property/:id", upload.any(), (req, res) => {
 
     const { error } = updatePropertyValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
+    mongoose.set("useFindAndModify", false);
+
     Property.findByIdAndUpdate(
       { _id: req.params.id },
       { $set: req.body },

@@ -72,6 +72,8 @@ router.put("/tenant/:id", upload.any(), (req, res) => {
       : JSON.parse(req.body.files_list);
     const { error } = updateTenantValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
+    mongoose.set("useFindAndModify", false);
+
     Tenant.findOneAndUpdate(
       { _id: req.params.id },
       { $set: req.body },

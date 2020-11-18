@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const DeveloperCompanySchema = mongoose.Schema({
+  files_list: [
+    {
+      fileName: { type: String },
+      file: { type: String },
+    },
+  ],
   Developer_country: {
     type: String,
     required: true,
@@ -43,10 +49,7 @@ const DeveloperCompanySchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  DeveloperCompany_photo: {
-    type: String,
-    required: true,
-  },
+
   DeveloperCompany_ID: {
     type: String,
   },
@@ -59,10 +62,15 @@ const DeveloperCompany = mongoose.model(
 
 const DeveloperCompanyCreate = (payload) => {
   const schema = Joi.object({
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+      })
+    ),
     Developer_area: Joi.string().required(),
     Developer_city: Joi.string().required(),
     Developer_country: Joi.string().required(),
-    DeveloperCompany_photo: Joi.string().required(),
     DeveloperCompany_phoneNo: Joi.number().required(),
     DeveloperCompany_Name: Joi.string().required(),
     DeveloperCompany_RegisterationDate: Joi.date().required(),
@@ -75,10 +83,16 @@ const DeveloperCompanyCreate = (payload) => {
 };
 const DeveloperCompanyValidator = (payload) => {
   const schema = Joi.object({
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+        _id: Joi.string(),
+      })
+    ),
     Developer_area: Joi.string().required(),
     Developer_city: Joi.string().required(),
     Developer_country: Joi.string().required(),
-    DeveloperCompany_photo: Joi.string().required(),
     DeveloperCompany_phoneNo: Joi.number().required(),
     DeveloperCompany_Name: Joi.string().required(),
     DeveloperCompany_RegisterationDate: Joi.date().required(),

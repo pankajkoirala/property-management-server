@@ -5,16 +5,12 @@ const myJoiObjectId = JoiObjectId(Joi);
 const { object } = require("joi");
 
 const LeaseSchema = mongoose.Schema({
-  // chequeList: [
-  //   {
-  //     type: mongoose.Schema.ObjectId,
-  //     ref: "Cheque",
-  //   },
-  // ],
-  photo: {
-    type: String,
-    required: true,
-  },
+  files_list: [
+    {
+      fileName: { type: String },
+      file: { type: String },
+    },
+  ],
 
   lease_enterDate: {
     type: Date,
@@ -86,8 +82,12 @@ const createLeaseValidator = (payload) => {
     expirationDate: Joi.date().required(),
     firstDueDate: Joi.date().required(),
     securityfirstDueDate: Joi.date().required(),
-    photo: Joi.string(),
-
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+      })
+    ),
     property: myJoiObjectId(),
   });
   return schema.validate(payload);
@@ -108,7 +108,13 @@ const updateLeaseValidator = (payload) => {
     firstDueDate: Joi.date().required(),
     securityfirstDueDate: Joi.date().required(),
     property: myJoiObjectId(),
-    photo: Joi.string(),
+    files_list: Joi.array().items(
+      Joi.object({
+        fileName: Joi.string(),
+        file: Joi.string(),
+        _id: Joi.string(),
+      })
+    ),
   });
   return schema.validate(payload);
 };
