@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
 const path = require("path");
 const router = express.Router();
 const {
@@ -47,8 +46,7 @@ router.post("/expense", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    // req.body.Company_uploadPhoto = result[0].secure_url;
-    // req.body.Company_ID = (Math.random() * 900000).toFixed(0);
+    req.body.Expense_ID = "EXP -" + (Math.random() * 900000).toFixed(0);
 
     const { error } = CreateExpenseValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);

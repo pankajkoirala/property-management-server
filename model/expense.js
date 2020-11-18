@@ -27,6 +27,9 @@ const ExpenseSchema = mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "maintananceTicket",
   },
+  Expense_ID: {
+    type: String,
+  },
 });
 
 const Expense = mongoose.model("expense", ExpenseSchema);
@@ -44,6 +47,7 @@ const CreateExpenseValidator = (payload) => {
     Expense_Remark: Joi.string(),
     Maintanance_ticketID: myJoiObjectId(),
     expenseInvoiceNumber: Joi.string().required(),
+    Expense_ID: Joi.string(),
   });
   return schema.validate(payload);
 };
@@ -60,6 +64,7 @@ const updateExpenseValidator = (payload) => {
     Expense_Remark: Joi.string(),
     Maintanance_ticketID: myJoiObjectId(),
     expenseInvoiceNumber: Joi.string().required(),
+    Expense_ID: Joi.string(),
   });
   return schema.validate(payload);
 };
