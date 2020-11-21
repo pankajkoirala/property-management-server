@@ -70,10 +70,7 @@ const PropertySchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  Parking_Number: {
-    type: Number,
-    required: true,
-  },
+
   Property_Premise_Number: {
     type: Number,
     required: true,
@@ -103,7 +100,6 @@ const createPropertyValidator = (payload) => {
         file: Joi.string(),
       })
     ),
-    Parking_Number: Joi.number().required(),
     Property_ownerName: Joi.string().required(),
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
@@ -143,7 +139,6 @@ const updatePropertyValidator = (payload) => {
       })
     ),
     Property_ownerName: Joi.string().required(),
-    Parking_Number: Joi.number().required(),
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
     area: Joi.string().required(),
