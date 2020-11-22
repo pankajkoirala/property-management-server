@@ -73,6 +73,9 @@ const ChequeSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  Cheque_ID: {
+    type: String,
+  },
 });
 
 const Cheque = mongoose.model("Cheque", ChequeSchema);
@@ -95,6 +98,7 @@ const createChequeValidator = (payload) => {
     cheque_recivedDate: Joi.date().required(),
     vat_amount: Joi.number().required(),
     miscellaneous_amount: Joi.number().required(),
+    Cheque_ID: Joi.string(),
   });
   return schema.validate(payload);
 };
@@ -116,6 +120,7 @@ const updateChequeValidator = (payload) => {
     cheque_recivedDate: Joi.date().required(),
     vat_amount: Joi.number().required(),
     miscellaneous_amount: Joi.number().required(),
+    Cheque_ID: Joi.string(),
   });
   return schema.validate(payload);
 };

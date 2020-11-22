@@ -44,8 +44,8 @@ router.post("/maintananceCompany", upload.any(), (req, res) => {
     req.body.files_list = result.map((photo) => {
       return { fileName: photo.original_filename, file: photo.secure_url };
     });
-    req.body.Company_ID = (Math.random() * 900000).toFixed(0);
-
+    req.body.Company_ID =
+      "MAINTANANCE_COMPANY-" + (Math.random() * 900000).toFixed(0);
     const { error } = CreateMaintananceCompanyValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
     let TenantData = new MaintananceCompany(req.body);

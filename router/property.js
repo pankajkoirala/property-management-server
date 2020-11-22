@@ -48,7 +48,7 @@ router.post("/property", upload.any(), (req, res) => {
     req.body.files_list = result.map((photo) => {
       return { fileName: photo.original_filename, file: photo.secure_url };
     });
-    req.body.referenceNO = (Math.random() * 900000).toFixed(0);
+    req.body.referenceNO = "PROPERTY-" + (Math.random() * 900000).toFixed(0);
     //validator of schema
     const { error } = createPropertyValidator(req.body);
     if (error) return res.status(401).send(error);

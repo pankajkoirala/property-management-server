@@ -54,7 +54,7 @@ const OwnerSchema = mongoose.Schema({
     ref: "Property",
   },
   owner_ID: {
-    type: Number,
+    type: String,
   },
 });
 
@@ -78,7 +78,7 @@ const CreateOwnerValidator = (payload) => {
     owner_lastName: Joi.string().required(),
     owner_email: Joi.string().required(),
     owner_property: myJoiObjectId(),
-    owner_ID: Joi.number(),
+    owner_ID: Joi.string(),
   });
   return schema.validate(payload);
 };
@@ -101,7 +101,7 @@ const updateOwnerValidator = (payload) => {
     owner_lastName: Joi.string().required(),
     owner_email: Joi.string().required(),
     owner_property: myJoiObjectId(),
-    owner_ID: Joi.number(),
+    owner_ID: Joi.string(),
   });
   return schema.validate(payload);
 };

@@ -49,7 +49,7 @@ const ManagementCompanySchema = mongoose.Schema({
     required: true,
   },
   managementCompany_companyID: {
-    type: Number,
+    type: String,
   },
 });
 
@@ -75,7 +75,7 @@ const CreateManagementCompanyValidator = (payload) => {
     managementCompany_Registeration_Date: Joi.date().required(),
     managementCompany_email: Joi.string().required(),
     managementCompany_MobileNumber: Joi.number().required(),
-    managementCompany_companyID: Joi.number(),
+    managementCompany_companyID: Joi.string(),
   });
   return schema.validate(payload);
 };
@@ -97,7 +97,7 @@ const updateManagementCompanyValidator = (payload) => {
     managementCompany_Registeration_Date: Joi.date().required(),
     managementCompany_email: Joi.string().required(),
     managementCompany_MobileNumber: Joi.number().required(),
-    managementCompany_companyID: Joi.number(),
+    managementCompany_companyID: Joi.string(),
   });
   return schema.validate(payload);
 };

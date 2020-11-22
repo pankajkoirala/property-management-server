@@ -40,7 +40,7 @@ const PropertySchema = mongoose.Schema({
   },
 
   referenceNO: {
-    type: Number,
+    type: String,
   },
   property_community: {
     type: String,
@@ -106,7 +106,7 @@ const createPropertyValidator = (payload) => {
     area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-    referenceNO: Joi.number(),
+    referenceNO: Joi.string(),
     property_community: Joi.string().required(),
     building_Name: Joi.string().required(),
     building_Number: Joi.number().required(),
@@ -144,7 +144,7 @@ const updatePropertyValidator = (payload) => {
     area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-    referenceNO: Joi.number(),
+    referenceNO: Joi.string(),
     property_community: Joi.string().required(),
     building_Name: Joi.string().required(),
     building_Number: Joi.number().required(),

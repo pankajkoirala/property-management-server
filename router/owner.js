@@ -46,7 +46,7 @@ router.post("/owner", upload.any(), (req, res) => {
     req.body.files_list = result.map((photo) => {
       return { fileName: photo.original_filename, file: photo.secure_url };
     });
-    req.body.owner_ID = (Math.random() * 900000).toFixed(0);
+    req.body.owner_ID = "OWNER-" + (Math.random() * 900000).toFixed(0);
     const { error } = CreateOwnerValidator(req.body);
     if (error) return res.status(401).send(error);
     let imageData = new Owner(req.body);

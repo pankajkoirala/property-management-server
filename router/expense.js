@@ -46,7 +46,7 @@ router.post("/expense", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.Expense_ID = "EXP -" + (Math.random() * 900000).toFixed(0);
+    req.body.Expense_ID = "EXPENSE-" + (Math.random() * 900000).toFixed(0);
 
     const { error } = CreateExpenseValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);

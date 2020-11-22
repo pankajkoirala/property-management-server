@@ -52,7 +52,7 @@ const EmployeeSchema = mongoose.Schema({
     required: true,
   },
   Employee_ID: {
-    type: Number,
+    type: String,
   },
 });
 
@@ -76,7 +76,7 @@ const CreateEmployeeValidator = (payload) => {
     employee_lastName: Joi.string().required(),
     employee_email: Joi.string().required(),
     employee_post: Joi.string().required(),
-    Employee_ID: Joi.number(),
+    Employee_ID: Joi.string(),
   });
   return schema.validate(payload);
 };
@@ -99,7 +99,7 @@ const updateEmployeeValidator = (payload) => {
     employee_lastName: Joi.string().required(),
     employee_email: Joi.string().required(),
     employee_post: Joi.string().required(),
-    Employee_ID: Joi.number(),
+    Employee_ID: Joi.string(),
   });
   return schema.validate(payload);
 };

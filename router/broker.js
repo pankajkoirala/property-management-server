@@ -44,7 +44,7 @@ router.post("/brokerCompany", upload.any(), (req, res) => {
     req.body.files_list = result.map((photo) => {
       return { fileName: photo.original_filename, file: photo.secure_url };
     });
-    req.body.brokerId = (Math.random() * 900000).toFixed(0);
+    req.body.brokerId = "BROKER-" + (Math.random() * 900000).toFixed(0);
 
     const { error } = createBrokerValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);

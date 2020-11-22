@@ -41,7 +41,7 @@ const TenantSchema = mongoose.Schema({
   },
 
   TenantId: {
-    type: Number,
+    type: String,
   },
   DateOfBirth_registrationDate: {
     type: Date,
@@ -74,12 +74,10 @@ const createTenantValidator = (payload) => {
     area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-
     DateOfBirth_registrationDate: Joi.date().required(),
     tenant_GovIdNo: Joi.number().required(),
     tenant_DrivingLicenceNo: Joi.number().required(),
-
-    TenantId: Joi.number(),
+    TenantId: Joi.string(),
   });
   return schema.validate(payload);
 };
@@ -99,12 +97,10 @@ const updateTenantValidator = (payload) => {
     area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
-
     DateOfBirth_registrationDate: Joi.date().required(),
     tenant_GovIdNo: Joi.number().required(),
     tenant_DrivingLicenceNo: Joi.number().required(),
-
-    TenantId: Joi.number(),
+    TenantId: Joi.string(),
   });
   return schema.validate(payload);
 };

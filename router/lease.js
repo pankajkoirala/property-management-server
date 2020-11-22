@@ -47,7 +47,7 @@ router.post("/lease", upload.any(), (req, res) => {
     req.body.files_list = result.map((photo) => {
       return { fileName: photo.original_filename, file: photo.secure_url };
     });
-    req.body.LeaseId = (Math.random() * 900000).toFixed(0);
+    req.body.LeaseId = "LEASE-" + (Math.random() * 900000).toFixed(0);
 
     console.log(req.body.property);
 

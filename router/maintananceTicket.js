@@ -29,7 +29,8 @@ router.get("/MaintananceTicket/:id", (req, res) => {
 
 //post router
 router.post("/MaintananceTicket", (req, res) => {
-  req.body.maintananceTicket_ID = (Math.random() * 900000).toFixed(0);
+  req.body.maintananceTicket_ID =
+    "MAINTANANCE_TICKET-" + (Math.random() * 900000).toFixed(0);
   //validator of schema
   const { error } = CreateMaintananceTicketValidator(req.body);
   if (error) return res.status(401).send(error);

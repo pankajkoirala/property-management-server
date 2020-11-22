@@ -44,7 +44,7 @@ router.post("/employee", upload.any(), (req, res) => {
     req.body.files_list = result.map((photo) => {
       return { fileName: photo.original_filename, file: photo.secure_url };
     });
-    req.body.Employee_ID = (Math.random() * 900000).toFixed(0);
+    req.body.Employee_ID = "EMPLOYEE-" + (Math.random() * 900000).toFixed(0);
 
     const { error } = CreateEmployeeValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);

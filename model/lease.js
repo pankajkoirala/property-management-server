@@ -52,7 +52,7 @@ const LeaseSchema = mongoose.Schema({
     required: true,
   },
   LeaseId: {
-    type: Number,
+    type: String,
   },
   property: {
     type: mongoose.Schema.ObjectId,
@@ -76,7 +76,7 @@ const createLeaseValidator = (payload) => {
     rentAmount: Joi.number().required(),
 
     securityDeposite: Joi.number().required(),
-    LeaseId: Joi.number(),
+    LeaseId: Joi.string(),
     lease_enterDate: Joi.date().required(),
     commenceDate: Joi.date().required(),
     expirationDate: Joi.date().required(),
@@ -101,7 +101,7 @@ const updateLeaseValidator = (payload) => {
     frequency: Joi.string().required(),
     rentAmount: Joi.number().required(),
     securityDeposite: Joi.number().required(),
-    LeaseId: Joi.number(),
+    LeaseId: Joi.string(),
     lease_enterDate: Joi.date().required(),
     commenceDate: Joi.date().required(),
     expirationDate: Joi.date().required(),

@@ -49,7 +49,7 @@ router.post("/cheque", upload.any(), (req, res) => {
   );
   Promise.all(uploadedFile).then((result) => {
     req.body.cheque_picture = result[0].secure_url;
-
+    req.body.Cheque_ID = "CHEQUE-" + (Math.random() * 900000).toFixed(0);
     //validator of schema
     const { error } = createChequeValidator(req.body);
     if (error) return res.status(401).send(error);
