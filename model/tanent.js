@@ -18,8 +18,9 @@ const TenantSchema = mongoose.Schema({
     required: true,
   },
 
-  company_Name: {
+  TenentType: {
     type: String,
+    required: true,
   },
   tenant_email: {
     type: String,
@@ -68,7 +69,7 @@ const createTenantValidator = (payload) => {
       })
     ),
     tenant_Name: Joi.string().required(),
-    company_Name: Joi.string(),
+    TenentType: Joi.string().required(),
     tenant_email: Joi.string().required(),
     tenant_phoneNo: Joi.number().required(),
     area: Joi.string().required(),
@@ -91,7 +92,7 @@ const updateTenantValidator = (payload) => {
       })
     ),
     tenant_Name: Joi.string().required(),
-    company_Name: Joi.string(),
+    TenentType: Joi.string().required(),
     tenant_email: Joi.string().required(),
     tenant_phoneNo: Joi.number().required(),
     area: Joi.string().required(),

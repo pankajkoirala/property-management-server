@@ -28,11 +28,10 @@ const ChequeSchema = mongoose.Schema({
 
   cheque_remarks: {
     type: String,
-    required: true,
   },
 
   cheque_number: {
-    type: Number,
+    type: String,
     required: true,
   },
 
@@ -83,12 +82,12 @@ const Cheque = mongoose.model("Cheque", ChequeSchema);
 const createChequeValidator = (payload) => {
   const schema = Joi.object({
     cheque_amount: Joi.number().required(),
-    cheque_number: Joi.number().required(),
+    cheque_number: Joi.string().required(),
     cheque_status: Joi.string().required(),
     cheque_bankName: Joi.string().required(),
     cheque_issueDate: Joi.date().required(),
     cheque_entryDate: Joi.date().required(),
-    cheque_remarks: Joi.string().required(),
+    cheque_remarks: Joi.string(),
     cheque_picture: Joi.string().required(),
     lease_property: myJoiObjectId(),
     cheque_depositeDate: Joi.date().required(),
@@ -104,12 +103,12 @@ const createChequeValidator = (payload) => {
 };
 const updateChequeValidator = (payload) => {
   const schema = Joi.object({
-    cheque_number: Joi.number().required(),
+    cheque_number: Joi.string().required(),
     cheque_amount: Joi.number().required(),
     cheque_status: Joi.string().required(),
     cheque_issueDate: Joi.date().required(),
     cheque_entryDate: Joi.date().required(),
-    cheque_remarks: Joi.string().required(),
+    cheque_remarks: Joi.string(),
     cheque_picture: Joi.string().required(),
     cheque_bankName: Joi.string().required(),
     lease_property: myJoiObjectId(),

@@ -28,7 +28,7 @@ const MaintananceCompanySchema = mongoose.Schema({
     required: true,
   },
   Company_Registration_Number: {
-    type: Number,
+    type: String,
     required: true,
   },
   Company_Name: {
@@ -70,7 +70,7 @@ const CreateMaintananceCompanyValidator = (payload) => {
     Company_Name: Joi.string().required(),
     Company_Mobile_Number: Joi.number().required(),
     Company_Registeration_Date: Joi.date().required(),
-    Company_Registration_Number: Joi.number().required(),
+    Company_Registration_Number: Joi.string().required(),
     Company_phoneNo: Joi.number().required(),
     Company_country: Joi.string().required(),
     Company_city: Joi.string().required(),
@@ -85,7 +85,7 @@ const updateMaintananceCompanyValidator = (payload) => {
     Company_Name: Joi.string().required(),
     Company_Mobile_Number: Joi.number().required(),
     Company_Registeration_Date: Joi.date().required(),
-    Company_Registration_Number: Joi.number().required(),
+    Company_Registration_Number: Joi.string().required(),
     Company_phoneNo: Joi.number().required(),
     Company_country: Joi.string().required(),
     Company_city: Joi.string().required(),

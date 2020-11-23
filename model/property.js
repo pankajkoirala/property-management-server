@@ -51,19 +51,19 @@ const PropertySchema = mongoose.Schema({
     required: true,
   },
   building_Number: {
-    type: Number,
+    type: String,
     required: true,
   },
   plot_Number: {
-    type: Number,
+    type: String,
     required: true,
   },
   building_floorNumber: {
-    type: Number,
+    type: String,
     required: true,
   },
   Muncipality_Number: {
-    type: Number,
+    type: String,
     required: true,
   },
   Property_Area: {
@@ -72,7 +72,7 @@ const PropertySchema = mongoose.Schema({
   },
 
   Property_Premise_Number: {
-    type: Number,
+    type: String,
     required: true,
   },
   Property_ownerName: {
@@ -109,11 +109,11 @@ const createPropertyValidator = (payload) => {
     referenceNO: Joi.string(),
     property_community: Joi.string().required(),
     building_Name: Joi.string().required(),
-    building_Number: Joi.number().required(),
-    plot_Number: Joi.number().required(),
-    building_floorNumber: Joi.number().required(),
-    Property_Premise_Number: Joi.number().required(),
-    Muncipality_Number: Joi.number().required(),
+    building_Number: Joi.string().required(),
+    plot_Number: Joi.string().required(),
+    building_floorNumber: Joi.string().required(),
+    Property_Premise_Number: Joi.string().required(),
+    Muncipality_Number: Joi.string().required(),
     Property_Area: Joi.number().required(),
   });
 
@@ -126,7 +126,6 @@ const updatePropertyValidator = (payload) => {
         heading: Joi.string(),
         unit: Joi.number(),
         remark: Joi.string(),
-
         facilitiesId: Joi.string(),
         _id: Joi.string(),
       })
@@ -147,11 +146,11 @@ const updatePropertyValidator = (payload) => {
     referenceNO: Joi.string(),
     property_community: Joi.string().required(),
     building_Name: Joi.string().required(),
-    building_Number: Joi.number().required(),
-    plot_Number: Joi.number().required(),
-    building_floorNumber: Joi.number().required(),
-    Property_Premise_Number: Joi.number().required(),
-    Muncipality_Number: Joi.number().required(),
+    building_Number: Joi.string().required(),
+    plot_Number: Joi.string().required(),
+    building_floorNumber: Joi.string().required(),
+    Property_Premise_Number: Joi.string().required(),
+    Muncipality_Number: Joi.string().required(),
     Property_Area: Joi.number().required(),
   });
   return schema.validate(payload);

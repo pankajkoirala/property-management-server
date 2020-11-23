@@ -36,7 +36,7 @@ const DeveloperCompanySchema = mongoose.Schema({
     required: true,
   },
   DeveloperCompany_RegisterationNumber: {
-    type: Number,
+    type: String,
     required: true,
   },
 
@@ -77,7 +77,7 @@ const DeveloperCompanyCreate = (payload) => {
     DeveloperCompany_email: Joi.string().required(),
     DeveloperCompany_MobileNumber: Joi.number().required(),
     DeveloperCompany_ID: Joi.string(),
-    DeveloperCompany_RegisterationNumber: Joi.number().required(),
+    DeveloperCompany_RegisterationNumber: Joi.string().required(),
   });
   return schema.validate(payload);
 };
@@ -99,7 +99,7 @@ const DeveloperCompanyValidator = (payload) => {
     DeveloperCompany_email: Joi.string().required(),
     DeveloperCompany_MobileNumber: Joi.number().required(),
     DeveloperCompany_ID: Joi.string(),
-    DeveloperCompany_RegisterationNumber: Joi.number().required(),
+    DeveloperCompany_RegisterationNumber: Joi.string().required(),
   });
   return schema.validate(payload);
 };
