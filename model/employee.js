@@ -51,6 +51,11 @@ const EmployeeSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  employee_gender: {
+    type: String,
+    required: true,
+  },
+
   Employee_ID: {
     type: String,
   },
@@ -60,6 +65,7 @@ const Employee = mongoose.model("employee", EmployeeSchema);
 
 const CreateEmployeeValidator = (payload) => {
   const schema = Joi.object({
+    employee_gender: Joi.string().required(),
     employee_area: Joi.string().required(),
     employee_city: Joi.string().required(),
     employee_country: Joi.string().required(),
@@ -82,6 +88,7 @@ const CreateEmployeeValidator = (payload) => {
 };
 const updateEmployeeValidator = (payload) => {
   const schema = Joi.object({
+    employee_gender: Joi.string().required(),
     employee_area: Joi.string().required(),
     employee_city: Joi.string().required(),
     employee_country: Joi.string().required(),
