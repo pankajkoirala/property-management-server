@@ -45,7 +45,6 @@ router.post("/invoice", upload.any(), (req, res) => {
   );
   Promise.all(uploadedFile).then((result) => {
     req.body.invoicePhoto = result[0].secure_url;
-    req.body.InvoiceId = "INVOICE-" + (Math.random() * 900000).toFixed(0);
 
     const { error } = createInvoiceValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);

@@ -28,6 +28,7 @@ const upload = multer({
 router.get("/expense", (req, res) => {
   Expense.find()
     .populate("Maintanance_ticketID")
+    .populate("MaintanancePropertyID")
     .then((Data) => res.json(Data))
     .catch((err) => res.json(err));
 });
@@ -47,6 +48,7 @@ router.post("/expense", upload.any(), (req, res) => {
   );
   Promise.all(uploadedFile).then((result) => {
     req.body.Expense_ID = "EXPENSE-" + (Math.random() * 900000).toFixed(0);
+    req.body.invoicePhoto = result[0].secure_url;
 
     const { error } = CreateExpenseValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
@@ -59,15 +61,16 @@ router.post("/expense", upload.any(), (req, res) => {
 
 //update to be left to validate
 router.put("/expense/:id", upload.any(), (req, res) => {
+  console.log(req.body);
   req.body.expense_list = JSON.parse(req.body.expense_list);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    // req.body.Company_uploadPhoto = result[0]
-    //   ? result[0].secure_url
-    //   : req.body.Company_uploadPhoto;
+    req.body.invoicePhoto = result[0]
+      ? result[0].secure_url
+      : req.body.invoicePhoto;
 
     const { error } = updateExpenseValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);

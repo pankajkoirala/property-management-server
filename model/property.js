@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
+const JoiObjectId = require("joi-objectid");
+const myJoiObjectId = JoiObjectId(Joi);
 const { object } = require("joi");
-
 const PropertySchema = mongoose.Schema({
   facilities: [
     {
@@ -79,6 +80,14 @@ const PropertySchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  developerCompany: {
+    type: mongoose.Schema.ObjectId,
+    ref: "DeveloperCompany",
+  },
+  managementCompany: {
+    type: mongoose.Schema.ObjectId,
+    ref: "managementCompany",
+  },
 });
 
 const Property = mongoose.model("Property", PropertySchema);
@@ -115,6 +124,8 @@ const createPropertyValidator = (payload) => {
     Property_Premise_Number: Joi.string().required(),
     Muncipality_Number: Joi.string().required(),
     Property_Area: Joi.number().required(),
+    developerCompany: myJoiObjectId(),
+    managementCompany: myJoiObjectId(),
   });
 
   return schema.validate(payload);
@@ -152,6 +163,8 @@ const updatePropertyValidator = (payload) => {
     Property_Premise_Number: Joi.string().required(),
     Muncipality_Number: Joi.string().required(),
     Property_Area: Joi.number().required(),
+    developerCompany: myJoiObjectId(),
+    managementCompany: myJoiObjectId(),
   });
   return schema.validate(payload);
 };

@@ -13,6 +13,7 @@ const InvoiceSchema = mongoose.Schema({
   },
   InvoiceId: {
     type: String,
+    required: true,
   },
   invoiceIssueDate: {
     type: Date,
@@ -35,7 +36,7 @@ const createInvoiceValidator = (payload) => {
   const schema = Joi.object({
     chequeMongoId: Joi.string().required(),
     invoicePhoto: Joi.string().required(),
-    InvoiceId: Joi.string(),
+    InvoiceId: Joi.string().required(),
     invoiceIssueDate: Joi.date().required(),
     chequeNumber: Joi.string().required(),
     lease_id: Joi.string().required(),
@@ -46,7 +47,7 @@ const updateInvoiceValidator = (payload) => {
   const schema = Joi.object({
     chequeMongoId: Joi.string().required(),
     invoicePhoto: Joi.string().required(),
-    InvoiceId: Joi.string(),
+    InvoiceId: Joi.string().required(),
     invoiceIssueDate: Joi.date().required(),
     chequeNumber: Joi.string().required(),
     lease_id: Joi.string().required(),

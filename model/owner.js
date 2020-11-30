@@ -33,15 +33,16 @@ const OwnerSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  owner_firstName: {
+
+  owner_Name: {
     type: String,
     required: true,
   },
 
-  owner_middleName: {
+  owner_Type: {
     type: String,
   },
-  owner_lastName: {
+  owner_GovID_RegNo: {
     type: String,
     required: true,
   },
@@ -72,10 +73,11 @@ const CreateOwnerValidator = (payload) => {
         file: Joi.string(),
       })
     ),
+
     owner_phoneNo: Joi.number().required(),
-    owner_firstName: Joi.string().required(),
-    owner_middleName: Joi.string(),
-    owner_lastName: Joi.string().required(),
+    owner_Name: Joi.string().required(),
+    owner_Type: Joi.string().required(),
+    owner_GovID_RegNo: Joi.string().required(),
     owner_email: Joi.string().required(),
     owner_property: myJoiObjectId(),
     owner_ID: Joi.string(),
@@ -96,9 +98,9 @@ const updateOwnerValidator = (payload) => {
       })
     ),
     owner_phoneNo: Joi.number().required(),
-    owner_firstName: Joi.string().required(),
-    owner_middleName: Joi.string(),
-    owner_lastName: Joi.string().required(),
+    owner_Name: Joi.string().required(),
+    owner_Type: Joi.string().required(),
+    owner_GovID_RegNo: Joi.string().required(),
     owner_email: Joi.string().required(),
     owner_property: myJoiObjectId(),
     owner_ID: Joi.string(),

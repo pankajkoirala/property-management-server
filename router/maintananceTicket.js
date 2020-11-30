@@ -14,7 +14,6 @@ router.get("/MaintananceTicket", (req, res) => {
   MaintananceTicket.find()
     .populate("MaintanancePropertyID")
     .populate("MaintananceCompanyId")
-    .populate("managementCompanyId")
 
     .then((Data) => res.json(Data))
     .catch((err) => res.json(err));
