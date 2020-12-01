@@ -29,6 +29,7 @@ router.get("/expense", (req, res) => {
   Expense.find()
     .populate("Maintanance_ticketID")
     .populate("MaintanancePropertyID")
+    .populate("property_ID")
     .then((Data) => res.json(Data))
     .catch((err) => res.json(err));
 });
@@ -61,7 +62,6 @@ router.post("/expense", upload.any(), (req, res) => {
 
 //update to be left to validate
 router.put("/expense/:id", upload.any(), (req, res) => {
-  console.log(req.body);
   req.body.expense_list = JSON.parse(req.body.expense_list);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>

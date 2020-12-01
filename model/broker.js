@@ -14,7 +14,7 @@ const BrokerSchema = mongoose.Schema({
     required: true,
   },
   broker_RegistrationNumber: {
-    type: Number,
+    type: String,
     required: true,
   },
   broker_companyName: {
@@ -64,7 +64,7 @@ const createBrokerValidator = (payload) => {
       })
     ),
     broker_phoneNo: Joi.number().required(),
-    broker_RegistrationNumber: Joi.number().required(),
+    broker_RegistrationNumber: Joi.string().required(),
     broker_companyName: Joi.string().required(),
     broker_companyRegisterDate: Joi.date().required(),
     broker_email: Joi.string().required(),
@@ -86,7 +86,7 @@ const updateBrokerValidator = (payload) => {
       })
     ),
     broker_phoneNo: Joi.number().required(),
-    broker_RegistrationNumber: Joi.number().required(),
+    broker_RegistrationNumber: Joi.string().required(),
     broker_companyName: Joi.string().required(),
     broker_companyRegisterDate: Joi.date().required(),
     broker_email: Joi.string().required(),

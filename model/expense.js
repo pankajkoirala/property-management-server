@@ -31,6 +31,11 @@ const ExpenseSchema = mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "maintananceTicket",
   },
+  property_ID: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Property",
+  },
+
   Expense_ID: {
     type: String,
   },
@@ -54,6 +59,7 @@ const CreateExpenseValidator = (payload) => {
     expense_EntryDate: Joi.date().required(),
     Expense_Remark: Joi.string(),
     Maintanance_ticketID: myJoiObjectId(),
+    property_ID: myJoiObjectId(),
     expenseInvoiceNumber: Joi.string().required(),
     Expense_ID: Joi.string(),
     invoicePhoto: Joi.string().required(),
@@ -73,6 +79,8 @@ const updateExpenseValidator = (payload) => {
     expense_EntryDate: Joi.date().required(),
     Expense_Remark: Joi.string(),
     Maintanance_ticketID: myJoiObjectId(),
+    property_ID: myJoiObjectId(),
+
     expenseInvoiceNumber: Joi.string().required(),
     Expense_ID: Joi.string(),
     invoicePhoto: Joi.string().required(),
