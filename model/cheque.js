@@ -43,6 +43,11 @@ const ChequeSchema = mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "Lease",
   },
+  property_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Property",
+  },
+
   cheque_depositeDate: {
     type: Date,
     required: true,
@@ -98,6 +103,7 @@ const createChequeValidator = (payload) => {
     vat_amount: Joi.number().required(),
     miscellaneous_amount: Joi.number().required(),
     Cheque_ID: Joi.string(),
+    property_id: myJoiObjectId(),
   });
   return schema.validate(payload);
 };
@@ -120,6 +126,7 @@ const updateChequeValidator = (payload) => {
     vat_amount: Joi.number().required(),
     miscellaneous_amount: Joi.number().required(),
     Cheque_ID: Joi.string(),
+    property_id: myJoiObjectId(),
   });
   return schema.validate(payload);
 };

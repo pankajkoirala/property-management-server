@@ -29,6 +29,7 @@ const upload = multer({
 router.get("/cheque", (req, res) => {
   Cheque.find()
     .populate("lease_property")
+    .populate("property_id")
 
     .then((Data) => res.json(Data))
     .catch((err) => res.json(err));
