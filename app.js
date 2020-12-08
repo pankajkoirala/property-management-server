@@ -88,6 +88,10 @@ app.use("/api", OwnerRouter);
 const invoiceRouter = require("./router/invoice");
 app.use("/api", invoiceRouter);
 
+// Cheque info
+const chequeInfoRouter = require("./router/chequeInfo");
+app.use("/api", chequeInfoRouter);
+
 // routes
 app.get("/", (req, res) => {
   res.send("we are on home");
