@@ -35,7 +35,11 @@ const ChequeSchema = mongoose.Schema({
     required: true,
   },
 
-  cheque_picture: {
+  cheque_picture_back: {
+    type: String,
+    required: true,
+  },
+  cheque_picture_front: {
     type: String,
     required: true,
   },
@@ -93,7 +97,10 @@ const createChequeValidator = (payload) => {
     cheque_issueDate: Joi.date().required(),
     cheque_entryDate: Joi.date().required(),
     cheque_remarks: Joi.string(),
-    cheque_picture: Joi.string().required(),
+
+    cheque_picture_back: Joi.string().required(),
+    cheque_picture_front: Joi.string().required(),
+
     lease_property: myJoiObjectId(),
     cheque_depositeDate: Joi.date().required(),
     cheque_clearDate: Joi.string().required(),
@@ -115,7 +122,8 @@ const updateChequeValidator = (payload) => {
     cheque_issueDate: Joi.date().required(),
     cheque_entryDate: Joi.date().required(),
     cheque_remarks: Joi.string(),
-    cheque_picture: Joi.string().required(),
+    cheque_picture_back: Joi.string().required(),
+    cheque_picture_front: Joi.string().required(),
     cheque_bankName: Joi.string().required(),
     lease_property: myJoiObjectId(),
     cheque_depositeDate: Joi.date().required(),

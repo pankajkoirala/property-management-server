@@ -76,10 +76,12 @@ const PropertySchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  Property_ownerName: {
-    type: String,
-    required: true,
-  },
+  Property_ownerName: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Owner",
+    },
+  ],
   developerCompany: {
     type: mongoose.Schema.ObjectId,
     ref: "DeveloperCompany",
@@ -109,7 +111,7 @@ const createPropertyValidator = (payload) => {
         file: Joi.string(),
       })
     ),
-    Property_ownerName: Joi.string().required(),
+    Property_ownerName: Joi.array().items(myJoiObjectId()),
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
     area: Joi.string().required(),
@@ -148,7 +150,7 @@ const updatePropertyValidator = (payload) => {
         _id: Joi.string(),
       })
     ),
-    Property_ownerName: Joi.string().required(),
+    Property_ownerName: Joi.array().items(myJoiObjectId()),
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
     area: Joi.string().required(),

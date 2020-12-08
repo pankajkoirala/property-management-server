@@ -49,7 +49,9 @@ router.post("/cheque", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.cheque_picture = result[0].secure_url;
+    req.body.cheque_picture_front = result[0].secure_url;
+    req.body.cheque_picture_back = result[1].secure_url;
+
     req.body.Cheque_ID = "CHEQUE-" + (Math.random() * 900000).toFixed(0);
     //validator of schema
     const { error } = createChequeValidator(req.body);
@@ -69,9 +71,12 @@ router.put("/cheque/:id", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.cheque_picture = result[0]
+    req.body.cheque_picture_front = result[0]
       ? result[0].secure_url
-      : req.body.cheque_picture;
+      : req.body.cheque_picture_front;
+    req.body.cheque_picture_back = result[1]
+      ? result[0].secure_url
+      : req.body.cheque_picture_back;
 
     const { error } = updateChequeValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);

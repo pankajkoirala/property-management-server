@@ -50,16 +50,16 @@ const OwnerSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  owner_property: {
-    type: mongoose.Schema.ObjectId,
-    ref: "Property",
-  },
+  // owner_property: {
+  //   type: mongoose.Schema.ObjectId,
+  //   ref: "Property",
+  // },
   owner_ID: {
     type: String,
   },
 });
 
-const Owner = mongoose.model("owner", OwnerSchema);
+const Owner = mongoose.model("Owner", OwnerSchema);
 
 const CreateOwnerValidator = (payload) => {
   const schema = Joi.object({
@@ -79,7 +79,7 @@ const CreateOwnerValidator = (payload) => {
     owner_Type: Joi.string().required(),
     owner_GovID_RegNo: Joi.string().required(),
     owner_email: Joi.string().required(),
-    owner_property: myJoiObjectId(),
+    //owner_property: myJoiObjectId(),
     owner_ID: Joi.string(),
   });
   return schema.validate(payload);
@@ -102,7 +102,7 @@ const updateOwnerValidator = (payload) => {
     owner_Type: Joi.string().required(),
     owner_GovID_RegNo: Joi.string().required(),
     owner_email: Joi.string().required(),
-    owner_property: myJoiObjectId(),
+    //owner_property: myJoiObjectId(),
     owner_ID: Joi.string(),
   });
   return schema.validate(payload);

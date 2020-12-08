@@ -25,7 +25,7 @@ const upload = multer({
 //get all
 router.get("/owner", (req, res) => {
   Owner.find()
-    .populate("owner_property")
+    // .populate("owner_property")
     .then((Data) => res.json(Data))
     .catch((err) => res.json(err));
 });
