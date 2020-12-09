@@ -34,10 +34,7 @@ const LeaseSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  firstDueDate: {
-    type: Date,
-    required: true,
-  },
+
   frequency: {
     type: String,
     required: true,
@@ -47,10 +44,7 @@ const LeaseSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  securityfirstDueDate: {
-    type: Date,
-    required: true,
-  },
+
   LeaseId: {
     type: String,
   },
@@ -80,8 +74,7 @@ const createLeaseValidator = (payload) => {
     lease_enterDate: Joi.date().required(),
     commenceDate: Joi.date().required(),
     expirationDate: Joi.date().required(),
-    firstDueDate: Joi.date().required(),
-    securityfirstDueDate: Joi.date().required(),
+
     files_list: Joi.array().items(
       Joi.object({
         fileName: Joi.string(),
@@ -105,8 +98,7 @@ const updateLeaseValidator = (payload) => {
     lease_enterDate: Joi.date().required(),
     commenceDate: Joi.date().required(),
     expirationDate: Joi.date().required(),
-    firstDueDate: Joi.date().required(),
-    securityfirstDueDate: Joi.date().required(),
+
     property: myJoiObjectId(),
     files_list: Joi.array().items(
       Joi.object({
