@@ -44,7 +44,6 @@ router.post("/invoice", upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path, { format: "jpeg" })
   );
   Promise.all(uploadedFile).then((result) => {
-    console.log(result);
     req.body.invoicePhoto = result[0].secure_url;
     const { error } = createInvoiceValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
