@@ -43,14 +43,12 @@ router.get("/MaintananceTicket/:id", (req, res) => {
 
 //post router
 router.post("/MaintananceTicket", upload.any(), (req, res) => {
-  console.log(req.body);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
     req.body.Maintanance_Ticket_picture = result[0].secure_url;
-    console.log(result);
 
     req.body.maintananceTicket_ID =
       "MAINTANANCE_TICKET-" + (Math.random() * 900000).toFixed(0);

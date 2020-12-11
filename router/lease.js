@@ -49,8 +49,6 @@ router.post("/lease", upload.any(), (req, res) => {
     });
     req.body.LeaseId = "LEASE-" + (Math.random() * 900000).toFixed(0);
 
-    console.log(req.body.property);
-
     const { error } = createLeaseValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
     let LeaseData = new Lease(req.body);

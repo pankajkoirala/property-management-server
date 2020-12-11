@@ -60,7 +60,6 @@ router.post("/tenant", upload.any(), (req, res) => {
 
 //update to be left to validate
 router.put("/tenant/:id", upload.any(), (req, res) => {
-  console.log(req.body);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)

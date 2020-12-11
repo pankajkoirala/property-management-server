@@ -71,7 +71,6 @@ router.post("/property", upload.any(), (req, res) => {
 //update to be left to validate
 
 router.put("/property/:id", upload.any(), (req, res) => {
-  console.log(req.body);
   req.body.Property_ownerName = JSON.parse(req.body.Property_ownerName);
   req.body.facilities = JSON.parse(req.body.facilities);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
