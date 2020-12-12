@@ -25,11 +25,13 @@ app.use(function (req, res, next) {
   next();
 });
 
+// CLOUDINARY_URL=cloudinary://287518613669312:UIBzMEuHO-gaEvdXSPKwVp2qLAU@dwzrf56tv
+
 //cloudinary config
 cloudinary.config({
-  cloud_name: "pankajkoirala",
-  api_key: 891382289963618,
-  api_secret: "3pKrB-1JvjrDFNKUNpMURXUtVJ0",
+  cloud_name: "grapheneinc",
+  api_key: "287518613669312",
+  api_secret: "UIBzMEuHO-gaEvdXSPKwVp2qLAU",
 });
 
 // //signup
