@@ -5,6 +5,8 @@ const path = require("path");
 const router = express.Router();
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
+const auth = require("../middleware/middleware");
+
 const {
   CreateMaintananceTicketValidator,
   MaintananceTicket,
@@ -25,7 +27,7 @@ const upload = multer({
 });
 
 //get all
-router.get("/MaintananceTicket", (req, res) => {
+router.get("/MaintananceTicket", auth, (req, res) => {
   MaintananceTicket.find()
     .populate("MaintanancePropertyID")
     .populate("MaintananceCompanyId")
@@ -42,7 +44,7 @@ router.get("/MaintananceTicket/:id", (req, res) => {
 });
 
 //post router
-router.post("/MaintananceTicket", upload.any(), (req, res) => {
+router.post("/MaintananceTicket", auth, upload.any(), (req, res) => {
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
@@ -67,7 +69,7 @@ router.post("/MaintananceTicket", upload.any(), (req, res) => {
 
 ////////////////////////////
 
-router.put("/MaintananceTicket/:id", upload.any(), (req, res) => {
+router.put("/MaintananceTicket/:id", auth, upload.any(), (req, res) => {
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)

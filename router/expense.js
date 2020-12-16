@@ -25,7 +25,7 @@ const upload = multer({
 });
 
 //get all
-router.get("/expense", (req, res) => {
+router.get("/expense", auth, (req, res) => {
   Expense.find()
     .populate("Maintanance_ticketID")
     .populate("MaintanancePropertyID")
@@ -41,7 +41,7 @@ router.get("/expense/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 //post router
-router.post("/expense", upload.any(), (req, res) => {
+router.post("/expense", auth, upload.any(), (req, res) => {
   req.body.expense_list = JSON.parse(req.body.expense_list);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
@@ -61,7 +61,7 @@ router.post("/expense", upload.any(), (req, res) => {
 });
 
 //update to be left to validate
-router.put("/expense/:id", upload.any(), (req, res) => {
+router.put("/expense/:id", auth, upload.any(), (req, res) => {
   req.body.expense_list = JSON.parse(req.body.expense_list);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>

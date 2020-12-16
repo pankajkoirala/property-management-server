@@ -58,22 +58,22 @@ router.post("/signup", (req, res) => {
   });
 });
 router.post("/login", (req, res, next) => {
-signup.find({email:req.body.email}).then((user)=>{
-  if(user.length<1){
+signup.findOne({email:req.body.email}).then((user)=>{
+  if(!user){
     return res.status(401).json({message:"username and password doesn't match"})
   }
   //password matching with code
-  bcrypt.compare(req.body.password,user[0].password,(err,resp)=>{
+  bcrypt.compare(req.body.password,user.password,(err,resp)=>{
     if(err){
       return res.status(401).json({message:"username and password doesn't match"})
     }
     if(resp){
     const token=jwt.sign({
-        email:user[0].email,
-        userId:user[0]._id
+        email:user.email,
+        userId:user._id
       },process.env.jwt_key,
       {
-        expiresIn:"1h"
+        expiresIn:"5h"
       },)
       return res.status(200).json({message:"auth successful",token:token})
     }

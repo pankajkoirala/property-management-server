@@ -23,7 +23,7 @@ const upload = multer({
 });
 
 //get all
-router.get("/property", (req, res) => {
+router.get("/property", auth, (req, res) => {
   Property.find()
     .populate("developerCompany")
     .populate("managementCompany")
@@ -37,14 +37,15 @@ router.get("/property", (req, res) => {
 });
 
 //get by id
-router.get("/property/:id", (req, res) => {
+router.get("/property/:id", auth, (req, res) => {
   Property.findById({ _id: req.params.id })
     .then((data) => res.json(data))
     .catch((err) => res.json(err));
 });
 
 //post router
-router.post("/property", upload.any(), (req, res) => {
+router.post("/property", auth, upload.any(), (req, res) => {
+  console.log(req.body);
   req.body.facilities = JSON.parse(req.body.facilities);
   req.body.Property_ownerName = JSON.parse(req.body.Property_ownerName);
 
@@ -70,7 +71,7 @@ router.post("/property", upload.any(), (req, res) => {
 
 //update to be left to validate
 
-router.put("/property/:id", upload.any(), (req, res) => {
+router.put("/property/:id", auth, upload.any(), (req, res) => {
   req.body.Property_ownerName = JSON.parse(req.body.Property_ownerName);
   req.body.facilities = JSON.parse(req.body.facilities);
   if (!req.files) return res.status(401).send(new Error("photo not found"));

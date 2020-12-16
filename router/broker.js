@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const router = express.Router();
+const auth = require("./../middleware/middleware");
+
 const {
   Broker,
   createBrokerValidator,
@@ -9,7 +11,6 @@ const {
 } = require("../model/broker");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
-const auth = require("../middleware/middleware");
 
 //multer config
 const storage = multer.diskStorage({
@@ -22,7 +23,7 @@ const upload = multer({
 });
 
 //get all
-router.get("/brokerCompany", (req, res) => {
+router.get("/brokerCompany", auth, (req, res) => {
   Broker.find()
     .then((Data) => res.json(Data))
     .catch((err) => res.json(err));
@@ -35,7 +36,8 @@ router.get("/brokerCompany/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 //post router
-router.post("/brokerCompany", upload.any(), (req, res) => {
+router.post("/brokerCompany", auth, upload.any(), (req, res) => {
+  console.log(req.body);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
@@ -57,7 +59,7 @@ router.post("/brokerCompany", upload.any(), (req, res) => {
 });
 
 //update to be left to validate
-router.put("/brokerCompany/:id", upload.any(), (req, res) => {
+router.put("/brokerCompany/:id", auth, upload.any(), (req, res) => {
   console.log(req.body);
   console.log(req.files);
   if (!req.files) return res.status(401).send(new Error("photo not found"));

@@ -22,7 +22,7 @@ const upload = multer({
 });
 
 //get all
-router.get("/DeveloperCompany", (req, res) => {
+router.get("/DeveloperCompany", auth, (req, res) => {
   DeveloperCompany.find()
     .then((Data) => res.json(Data))
     .catch((err) => res.json(err));
@@ -35,7 +35,7 @@ router.get("/DeveloperCompany/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 //post router
-router.post("/DeveloperCompany", upload.any(), (req, res) => {
+router.post("/DeveloperCompany", auth, upload.any(), (req, res) => {
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
@@ -57,7 +57,7 @@ router.post("/DeveloperCompany", upload.any(), (req, res) => {
 });
 
 //update to be left to validate
-router.put("/DeveloperCompany/:id", upload.any(), (req, res) => {
+router.put("/DeveloperCompany/:id", auth, upload.any(), (req, res) => {
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
