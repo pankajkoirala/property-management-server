@@ -37,7 +37,6 @@ router.get("/brokerCompany/:id", (req, res) => {
 });
 //post router
 router.post("/brokerCompany", auth, upload.any(), (req, res) => {
-  console.log(req.body);
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
@@ -60,8 +59,7 @@ router.post("/brokerCompany", auth, upload.any(), (req, res) => {
 
 //update to be left to validate
 router.put("/brokerCompany/:id", auth, upload.any(), (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
+
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)

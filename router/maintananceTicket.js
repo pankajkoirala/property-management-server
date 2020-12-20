@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     cb(
       null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+      `${file.fieldname}`
     );
   },
 });
@@ -44,54 +44,54 @@ router.get("/MaintananceTicket/:id", (req, res) => {
 });
 
 //post router
+
 router.post("/MaintananceTicket", auth, upload.any(), (req, res) => {
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.Maintanance_Ticket_picture = result[0].secure_url;
-
+    req.body.files_list = result.map((photo) => {
+      return { fileName: photo.original_filename, file: photo.secure_url };
+    });
     req.body.maintananceTicket_ID =
-      "MAINTANANCE_TICKET-" + (Math.random() * 900000).toFixed(0);
-
-    //validator of schema
-    const { error } = CreateMaintananceTicketValidator(req.body);
+    "MAINTANANCE_TICKET-" + (Math.random() * 900000).toFixed(0);
+        const { error } = CreateMaintananceTicketValidator(req.body);
     if (error) return res.status(401).send(error);
-    let MaintananceTicketData = new MaintananceTicket(req.body);
-    MaintananceTicketData.save()
+    let imageData = new MaintananceTicket(req.body);
+    imageData
+      .save()
       .then((data) => res.send(data))
       .catch((err) => res.json({ messege: err }));
   });
 });
-
 //update to be left to validate
-
-////////////////////////////
-
 router.put("/MaintananceTicket/:id", auth, upload.any(), (req, res) => {
   if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.Maintanance_Ticket_picture = result[0]
-      ? result[0].secure_url
-      : req.body.Maintanance_Ticket_picture;
-
+    req.body.files_list = result[0]
+      ? result.map((photo) => {
+          return { fileName: photo.original_filename, file: photo.secure_url };
+        })
+      : JSON.parse(req.body.files_list);
     const { error } = updateMaintananceTicketValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
     mongoose.set("useFindAndModify", false);
 
-    MaintananceTicket.findByIdAndUpdate(
+    MaintananceTicket.findOneAndUpdate(
       { _id: req.params.id },
       { $set: req.body },
       { new: true }
     )
-      .then((data) => res.json(data))
+      .then((data) => res.json("updated"))
       .catch((err) => res.json(err));
   });
 });
+
+
 
 //delet router
 router.delete("/MaintananceTicket/:id", (req, res) => {

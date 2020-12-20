@@ -45,7 +45,6 @@ router.get("/property/:id", auth, (req, res) => {
 
 //post router
 router.post("/property", auth, upload.any(), (req, res) => {
-  console.log(req.body);
   req.body.facilities = JSON.parse(req.body.facilities);
   req.body.Property_ownerName = JSON.parse(req.body.Property_ownerName);
 

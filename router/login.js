@@ -17,8 +17,7 @@ const { Router } = require("express");
 router.get("/signup", (req, res) => {
   signup
     .find()
-    .select("email password")
-    .then((Data) => res.json(Data))
+     .then((Data) => res.json(Data))
     .catch((err) => res.json(err));
 });
 
@@ -78,7 +77,6 @@ signup.findOne({email:req.body.email}).then((user)=>{
       return res.status(200).json({message:"auth successful",token:token})
     }
     return res.status(401).json({message:"username and password doesn't match"})
-
   })
 }).catch((err)=>res.json({message:err}))
 
