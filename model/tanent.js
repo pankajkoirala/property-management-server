@@ -27,7 +27,7 @@ const TenantSchema = mongoose.Schema({
     required: true,
   },
 
-  area: {
+  residence: {
     type: String,
     required: true,
   },
@@ -49,12 +49,24 @@ const TenantSchema = mongoose.Schema({
     required: true,
   },
   tenant_GovIdNo: {
-    type: Number,
+    type: String,
     required: true,
   },
-  tenant_DrivingLicenceNo: {
-    type: Number,
+  tenant_GovIdNo_expireDate: {
+    type: Date,
     required: true,
+  },
+  tenant_passport_expireDate: {
+    type: String,
+  },
+  tenant_passportNo: {
+    type: String,
+  },
+  tenant_visaNo: {
+    type: String,
+  },
+  tenant_visa_expireDate: {
+    type: String,
   },
 });
 
@@ -72,13 +84,18 @@ const createTenantValidator = (payload) => {
     TenentType: Joi.string().required(),
     tenant_email: Joi.string().required(),
     tenant_phoneNo: Joi.number().required(),
-    area: Joi.string().required(),
+    residence: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
     DateOfBirth_registrationDate: Joi.date().required(),
     tenant_GovIdNo: Joi.number().required(),
-    tenant_DrivingLicenceNo: Joi.number().required(),
     TenantId: Joi.string(),
+
+    tenant_GovIdNo_expireDate: Joi.date().required(),
+    tenant_passport_expireDate: Joi.string(),
+    tenant_passportNo: Joi.string(),
+    tenant_visaNo: Joi.string(),
+    tenant_visa_expireDate: Joi.string(),
   });
   return schema.validate(payload);
 };
@@ -95,13 +112,17 @@ const updateTenantValidator = (payload) => {
     TenentType: Joi.string().required(),
     tenant_email: Joi.string().required(),
     tenant_phoneNo: Joi.number().required(),
-    area: Joi.string().required(),
+    residence: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
     DateOfBirth_registrationDate: Joi.date().required(),
     tenant_GovIdNo: Joi.number().required(),
-    tenant_DrivingLicenceNo: Joi.number().required(),
     TenantId: Joi.string(),
+    tenant_GovIdNo_expireDate: Joi.date().required(),
+    tenant_passport_expireDate: Joi.string(),
+    tenant_passportNo: Joi.string(),
+    tenant_visaNo: Joi.string(),
+    tenant_visa_expireDate: Joi.string(),
   });
   return schema.validate(payload);
 };
