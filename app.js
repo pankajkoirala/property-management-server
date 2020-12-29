@@ -100,6 +100,6 @@ app.get("/", (req, res) => {
 });
 
 // how to we start lession to the port
-app.listen(8000, () => {
+app.listen(process.env.PORT, () => {
   console.log(`server running at 8000`);
 });
