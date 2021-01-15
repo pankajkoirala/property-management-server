@@ -32,10 +32,7 @@ const ManagementCompanySchema = mongoose.Schema({
     required: true,
   },
 
-  managementCompany_Registeration_Date: {
-    type: Date,
-    required: true,
-  },
+
   managementCompany_email: {
     type: String,
     required: true,
@@ -44,10 +41,7 @@ const ManagementCompanySchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  managementCompany_Registeration_Number: {
-    type: String,
-    required: true,
-  },
+
   managementCompany_companyID: {
     type: String,
   },
@@ -70,9 +64,7 @@ const CreateManagementCompanyValidator = (payload) => {
       })
     ),
     managementCompany_phoneNo: Joi.number().required(),
-    managementCompany_Registeration_Number: Joi.string().required(),
     managementCompany_name: Joi.string().required(),
-    managementCompany_Registeration_Date: Joi.date().required(),
     managementCompany_email: Joi.string().required(),
     managementCompany_MobileNumber: Joi.number().required(),
     managementCompany_companyID: Joi.string(),
@@ -92,9 +84,7 @@ const updateManagementCompanyValidator = (payload) => {
       })
     ),
     managementCompany_phoneNo: Joi.number().required(),
-    managementCompany_Registeration_Number: Joi.string().required(),
     managementCompany_name: Joi.string().required(),
-    managementCompany_Registeration_Date: Joi.date().required(),
     managementCompany_email: Joi.string().required(),
     managementCompany_MobileNumber: Joi.number().required(),
     managementCompany_companyID: Joi.string(),
