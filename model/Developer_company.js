@@ -13,7 +13,7 @@ const DeveloperCompanySchema = mongoose.Schema({
     required: true,
   },
 
-  Developer_residence: {
+  Developer_area: {
     type: String,
     required: true,
   },
@@ -68,7 +68,7 @@ const DeveloperCompanyCreate = (payload) => {
         file: Joi.string(),
       })
     ),
-    Developer_residence: Joi.string().required(),
+    Developer_area: Joi.string().required(),
     Developer_city: Joi.string().required(),
     Developer_country: Joi.string().required(),
     DeveloperCompany_phoneNo: Joi.number().required(),
@@ -90,7 +90,7 @@ const DeveloperCompanyValidator = (payload) => {
         _id: Joi.string(),
       })
     ),
-    Developer_residence: Joi.string().required(),
+    Developer_area: Joi.string().required(),
     Developer_city: Joi.string().required(),
     Developer_country: Joi.string().required(),
     DeveloperCompany_phoneNo: Joi.number().required(),

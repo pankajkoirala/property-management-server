@@ -77,6 +77,10 @@ const ChequeSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  securityDeposite: {
+    type: Number,
+    required: true,
+  },
   miscellaneous_amount: {
     type: Number,
     required: true,
@@ -102,12 +106,10 @@ const createChequeValidator = (payload) => {
     cheque_issueDate: Joi.date().required(),
     cheque_entryDate: Joi.date().required(),
     cheque_remarks: Joi.string(),
-
     cheque_picture_back: Joi.string().required(),
     cheque_picture_front: Joi.string().required(),
     ChequeListNo: Joi.string().required(),
-
-
+    securityDeposite: Joi.number().required(),
     lease_property: myJoiObjectId(),
     cheque_depositeDate: Joi.date().required(),
     cheque_clearDate: Joi.string().required(),
@@ -143,6 +145,8 @@ const updateChequeValidator = (payload) => {
     Cheque_ID: Joi.string(),
     property_id: myJoiObjectId(),
     ChequeListNo: Joi.string().required(),
+    securityDeposite: Joi.number().required(),
+
 
   });
   return schema.validate(payload);

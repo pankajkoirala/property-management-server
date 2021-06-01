@@ -57,7 +57,16 @@ const LeaseSchema = mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "Tenant",
   },
+  totalAmount: {
+    type: Number,
+    required: true,
+  },
+  VAT_Amount: {
+    type: Number,
+    required: true,
+  },
 });
+
 
 const Lease = mongoose.model("Lease", LeaseSchema);
 
@@ -74,7 +83,8 @@ const createLeaseValidator = (payload) => {
     lease_enterDate: Joi.date().required(),
     commenceDate: Joi.date().required(),
     expirationDate: Joi.date().required(),
-
+    totalAmount:Joi.number().required(),
+    VAT_Amount:Joi.number().required(),
     files_list: Joi.array().items(
       Joi.object({
         fileName: Joi.string(),
@@ -98,7 +108,8 @@ const updateLeaseValidator = (payload) => {
     lease_enterDate: Joi.date().required(),
     commenceDate: Joi.date().required(),
     expirationDate: Joi.date().required(),
-
+    totalAmount:Joi.number().required(),
+    VAT_Amount:Joi.number().required(),
     property: myJoiObjectId(),
     files_list: Joi.array().items(
       Joi.object({

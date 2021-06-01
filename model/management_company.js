@@ -3,7 +3,7 @@ const Joi = require("joi");
 const { object } = require("joi");
 
 const ManagementCompanySchema = mongoose.Schema({
-  managementCompany_residence: {
+  managementCompany_area: {
     type: String,
     required: true,
   },
@@ -54,7 +54,7 @@ const ManagementCompany = mongoose.model(
 
 const CreateManagementCompanyValidator = (payload) => {
   const schema = Joi.object({
-    managementCompany_residence: Joi.string().required(),
+    managementCompany_area: Joi.string().required(),
     managementCompany_city: Joi.string().required(),
     managementCompany_country: Joi.string().required(),
     files_list: Joi.array().items(
@@ -73,7 +73,7 @@ const CreateManagementCompanyValidator = (payload) => {
 };
 const updateManagementCompanyValidator = (payload) => {
   const schema = Joi.object({
-    managementCompany_residence: Joi.string().required(),
+    managementCompany_area: Joi.string().required(),
     managementCompany_city: Joi.string().required(),
     managementCompany_country: Joi.string().required(),
     files_list: Joi.array().items(

@@ -5,7 +5,7 @@ const JoiObjectId = require("joi-objectid");
 const myJoiObjectId = JoiObjectId(Joi);
 
 const OwnerSchema = mongoose.Schema({
-  owner_residence: {
+  owner_area: {
     type: String,
     required: true,
   },
@@ -63,7 +63,7 @@ const Owner = mongoose.model("Owner", OwnerSchema);
 
 const CreateOwnerValidator = (payload) => {
   const schema = Joi.object({
-    owner_residence: Joi.string().required(),
+    owner_area: Joi.string().required(),
     owner_city: Joi.string().required(),
     owner_country: Joi.string().required(),
     owner_DOB: Joi.date().required(),
@@ -86,7 +86,7 @@ const CreateOwnerValidator = (payload) => {
 };
 const updateOwnerValidator = (payload) => {
   const schema = Joi.object({
-    owner_residence: Joi.string().required(),
+    owner_area: Joi.string().required(),
     owner_city: Joi.string().required(),
     owner_country: Joi.string().required(),
     owner_DOB: Joi.date().required(),

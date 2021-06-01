@@ -11,34 +11,27 @@ const TenantSchema = mongoose.Schema({
   ],
   tenant_phoneNo: {
     type: Number,
-    required: true,
   },
   tenant_Name: {
     type: String,
-    required: true,
   },
 
   TenentType: {
     type: String,
-    required: true,
   },
   tenant_email: {
     type: String,
-    required: true,
   },
 
-  residence: {
+  area: {
     type: String,
-    required: true,
   },
   city: {
     type: String,
-    required: true,
   },
 
   country: {
     type: String,
-    required: true,
   },
 
   TenantId: {
@@ -46,18 +39,15 @@ const TenantSchema = mongoose.Schema({
   },
   DateOfBirth_registrationDate: {
     type: Date,
-    required: true,
   },
   tenant_GovIdNo: {
     type: String,
-    required: true,
   },
   tenant_GovIdNo_expireDate: {
     type: Date,
-    required: true,
   },
   tenant_passport_expireDate: {
-    type: String,
+    type: Date,
   },
   tenant_passportNo: {
     type: String,
@@ -66,6 +56,24 @@ const TenantSchema = mongoose.Schema({
     type: String,
   },
   tenant_visa_expireDate: {
+    type: Date,
+  },
+  tenant_companyName: {
+    type: String,
+  },
+  tenant_companyAuthorizePerson: {
+    type: String,
+  },
+  tenant_companyIssuingDate: {
+    type: Date,
+  },
+  tenant_companyExpireDate: {
+    type: Date,
+  },
+  tenant_companyAuthorizePersonDesignation: {
+    type: String,
+  },
+  tenant_companyTradeLicenseNo: {
     type: String,
   },
 });
@@ -80,22 +88,28 @@ const createTenantValidator = (payload) => {
         file: Joi.string(),
       })
     ),
-    tenant_Name: Joi.string().required(),
-    TenentType: Joi.string().required(),
-    tenant_email: Joi.string().required(),
-    tenant_phoneNo: Joi.number().required(),
-    residence: Joi.string().required(),
-    city: Joi.string().required(),
-    country: Joi.string().required(),
-    DateOfBirth_registrationDate: Joi.date().required(),
-    tenant_GovIdNo: Joi.number().required(),
+    tenant_Name: Joi.string(),
+    TenentType: Joi.string(),
+    tenant_email: Joi.string(),
+    tenant_phoneNo: Joi.number(),
+    area: Joi.string(),
+    city: Joi.string(),
+    country: Joi.string(),
+    DateOfBirth_registrationDate: Joi.date(),
+    tenant_GovIdNo: Joi.number(),
     TenantId: Joi.string(),
 
-    tenant_GovIdNo_expireDate: Joi.date().required(),
+    tenant_GovIdNo_expireDate: Joi.date(),
     tenant_passport_expireDate: Joi.string(),
     tenant_passportNo: Joi.string(),
     tenant_visaNo: Joi.string(),
     tenant_visa_expireDate: Joi.string(),
+    tenant_companyName: Joi.string(),
+    tenant_companyAuthorizePerson: Joi.string(),
+    tenant_companyIssuingDate: Joi.date(),
+    tenant_companyExpireDate: Joi.date(),
+    tenant_companyAuthorizePersonDesignation: Joi.string(),
+    tenant_companyTradeLicenseNo: Joi.string(),
   });
   return schema.validate(payload);
 };
@@ -108,21 +122,27 @@ const updateTenantValidator = (payload) => {
         _id: Joi.string(),
       })
     ),
-    tenant_Name: Joi.string().required(),
-    TenentType: Joi.string().required(),
-    tenant_email: Joi.string().required(),
-    tenant_phoneNo: Joi.number().required(),
-    residence: Joi.string().required(),
-    city: Joi.string().required(),
-    country: Joi.string().required(),
-    DateOfBirth_registrationDate: Joi.date().required(),
-    tenant_GovIdNo: Joi.number().required(),
+    tenant_Name: Joi.string(),
+    TenentType: Joi.string(),
+    tenant_email: Joi.string(),
+    tenant_phoneNo: Joi.number(),
+    area: Joi.string(),
+    city: Joi.string(),
+    country: Joi.string(),
+    DateOfBirth_registrationDate: Joi.date(),
+    tenant_GovIdNo: Joi.number(),
     TenantId: Joi.string(),
-    tenant_GovIdNo_expireDate: Joi.date().required(),
+    tenant_GovIdNo_expireDate: Joi.date(),
     tenant_passport_expireDate: Joi.string(),
     tenant_passportNo: Joi.string(),
     tenant_visaNo: Joi.string(),
     tenant_visa_expireDate: Joi.string(),
+    tenant_companyName: Joi.string(),
+    tenant_companyAuthorizePerson: Joi.string(),
+    tenant_companyIssuingDate: Joi.date(),
+    tenant_companyExpireDate: Joi.date(),
+    tenant_companyAuthorizePersonDesignation: Joi.string(),
+    tenant_companyTradeLicenseNo: Joi.string(),
   });
   return schema.validate(payload);
 };

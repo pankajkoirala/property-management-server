@@ -27,7 +27,7 @@ const PropertySchema = mongoose.Schema({
     required: true,
   },
 
-  residence: {
+  area: {
     type: String,
     required: true,
   },
@@ -47,7 +47,7 @@ const PropertySchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  building_Name: {
+  plot_no: {
     type: String,
     required: true,
   },
@@ -55,15 +55,12 @@ const PropertySchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  flat_Number: {
-    type: String,
-    required: true,
-  },
+
   building_floorNumber: {
     type: String,
     required: true,
   },
-  Muncipality_Number: {
+  Makani_Number: {
     type: String,
     required: true,
   },
@@ -118,17 +115,16 @@ const createPropertyValidator = (payload) => {
     Property_ownerName: Joi.array().items(myJoiObjectId()),
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
-    residence: Joi.string().required(),
+    area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
     referenceNO: Joi.string(),
     property_community: Joi.string().required(),
-    building_Name: Joi.string().required(),
+    plot_no: Joi.string().required(),
     building_Number: Joi.string().required(),
-    flat_Number: Joi.string().required(),
     building_floorNumber: Joi.string().required(),
     Property_Premise_Number: Joi.string().required(),
-    Muncipality_Number: Joi.string().required(),
+    Makani_Number: Joi.string().required(),
     Property_Area: Joi.number().required(),
     developerCompany: myJoiObjectId(),
     managementCompany: myJoiObjectId(),
@@ -158,17 +154,16 @@ const updatePropertyValidator = (payload) => {
     Property_ownerName: Joi.array().items(myJoiObjectId()),
     property_type: Joi.string().required(),
     property_price: Joi.number().required(),
-    residence: Joi.string().required(),
+    area: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
     referenceNO: Joi.string(),
     property_community: Joi.string().required(),
-    building_Name: Joi.string().required(),
+    plot_no: Joi.string().required(),
     building_Number: Joi.string().required(),
-    flat_Number: Joi.string().required(),
     building_floorNumber: Joi.string().required(),
     Property_Premise_Number: Joi.string().required(),
-    Muncipality_Number: Joi.string().required(),
+    Makani_Number: Joi.string().required(),
     Property_Area: Joi.number().required(),
     developerCompany: myJoiObjectId(),
     managementCompany: myJoiObjectId(),
