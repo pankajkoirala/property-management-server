@@ -44,13 +44,14 @@ router.get("/cheque/:id", (req, res) => {
 
 //post router
 router.post("/cheque", auth, upload.any(), (req, res) => {
-  if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.cheque_picture_front = result[0].secure_url;
-    req.body.cheque_picture_back = result[1].secure_url;
+    if (req.files.length) {
+      req.body.cheque_picture_front = result[0].secure_url;
+      req.body.cheque_picture_back = result[1].secure_url;
+    }
 
     req.body.Cheque_ID = "CHEQUE-" + (Math.random() * 900000).toFixed(0);
     //validator of schema
@@ -71,12 +72,14 @@ router.put("/cheque/:id", auth, upload.any(), (req, res) => {
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    req.body.cheque_picture_front = result[0]
-      ? result[0].secure_url
-      : req.body.cheque_picture_front;
-    req.body.cheque_picture_back = result[1]
-      ? result[0].secure_url
-      : req.body.cheque_picture_back;
+    if (req.files.length) {  
+      req.body.cheque_picture_front = result[0]
+        ? result[0].secure_url
+        : req.body.cheque_picture_front;
+      req.body.cheque_picture_back = result[1]
+        ? result[0].secure_url
+        : req.body.cheque_picture_back;
+    }
 
     const { error } = updateChequeValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);

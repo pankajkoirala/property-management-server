@@ -7,23 +7,18 @@ const { object } = require("joi");
 const ChequeSchema = mongoose.Schema({
   cheque_amount: {
     type: Number,
-    required: true,
   },
   cheque_bankName: {
     type: String,
-    required: true,
   },
   cheque_status: {
     type: String,
-    required: true,
   },
   cheque_issueDate: {
     type: Date,
-    required: true,
   },
-  cheque_entryDate: {
+  entryDate: {
     type: Date,
-    required: true,
   },
 
   cheque_remarks: {
@@ -32,16 +27,13 @@ const ChequeSchema = mongoose.Schema({
 
   cheque_number: {
     type: String,
-    required: true,
   },
 
   cheque_picture_back: {
     type: String,
-    required: true,
   },
   cheque_picture_front: {
     type: String,
-    required: true,
   },
   lease_property: {
     type: mongoose.Schema.ObjectId,
@@ -54,100 +46,98 @@ const ChequeSchema = mongoose.Schema({
 
   cheque_depositeDate: {
     type: Date,
-    required: true,
   },
   cheque_clearDate: {
     type: String,
-    required: true,
   },
   cheque_bouncedDate: {
     type: String,
-    required: true,
   },
   cheque_holdDate: {
     type: String,
-    required: true,
   },
 
   cheque_recivedDate: {
     type: Date,
-    required: true,
   },
   vat_amount: {
     type: Number,
-    required: true,
   },
   securityDeposite: {
     type: Number,
-    required: true,
   },
   miscellaneous_amount: {
     type: Number,
-    required: true,
   },
   Cheque_ID: {
     type: String,
   },
   ChequeListNo: {
     type: String,
-    required: true,
   },
-
+  Transaction_Type: {
+    type: String,
+  },
+  depositeBank: {
+    type: String,
+  },
 });
 
 const Cheque = mongoose.model("Cheque", ChequeSchema);
 
 const createChequeValidator = (payload) => {
   const schema = Joi.object({
-    cheque_amount: Joi.number().required(),
-    cheque_number: Joi.string().required(),
-    cheque_status: Joi.string().required(),
-    cheque_bankName: Joi.string().required(),
-    cheque_issueDate: Joi.date().required(),
-    cheque_entryDate: Joi.date().required(),
+    cheque_amount: Joi.number(),
+    cheque_number: Joi.string(),
+    cheque_status: Joi.string(),
+    cheque_bankName: Joi.string(),
+    cheque_issueDate: Joi.date(),
+    entryDate: Joi.date(),
     cheque_remarks: Joi.string(),
-    cheque_picture_back: Joi.string().required(),
-    cheque_picture_front: Joi.string().required(),
-    ChequeListNo: Joi.string().required(),
-    securityDeposite: Joi.number().required(),
+    cheque_picture_back: Joi.string(),
+    cheque_picture_front: Joi.string(),
+    ChequeListNo: Joi.string(),
+    securityDeposite: Joi.number(),
     lease_property: myJoiObjectId(),
-    cheque_depositeDate: Joi.date().required(),
-    cheque_clearDate: Joi.string().required(),
-    cheque_bouncedDate: Joi.string().required(),
-    cheque_holdDate: Joi.string().required(),
-    cheque_recivedDate: Joi.date().required(),
-    vat_amount: Joi.number().required(),
-    miscellaneous_amount: Joi.number().required(),
+    cheque_depositeDate: Joi.date(),
+    cheque_clearDate: Joi.string(),
+    cheque_bouncedDate: Joi.string(),
+    cheque_holdDate: Joi.string(),
+    cheque_recivedDate: Joi.date(),
+    vat_amount: Joi.number(),
+    miscellaneous_amount: Joi.number(),
     Cheque_ID: Joi.string(),
     property_id: myJoiObjectId(),
+    Transaction_Type: Joi.string(),
+    depositeBank: Joi.string(),
   });
   return schema.validate(payload);
 };
 const updateChequeValidator = (payload) => {
   const schema = Joi.object({
-    cheque_number: Joi.string().required(),
-    cheque_amount: Joi.number().required(),
-    cheque_status: Joi.string().required(),
-    cheque_issueDate: Joi.date().required(),
-    cheque_entryDate: Joi.date().required(),
+    cheque_number: Joi.string(),
+    cheque_amount: Joi.number(),
+    cheque_status: Joi.string(),
+    cheque_issueDate: Joi.date(),
+    entryDate: Joi.date(),
     cheque_remarks: Joi.string(),
-    cheque_picture_back: Joi.string().required(),
-    cheque_picture_front: Joi.string().required(),
-    cheque_bankName: Joi.string().required(),
+    cheque_picture_back: Joi.string(),
+    cheque_picture_front: Joi.string(),
+    cheque_bankName: Joi.string(),
     lease_property: myJoiObjectId(),
-    cheque_depositeDate: Joi.date().required(),
-    cheque_clearDate: Joi.string().required(),
-    cheque_bouncedDate: Joi.string().required(),
-    cheque_holdDate: Joi.string().required(),
-    cheque_recivedDate: Joi.date().required(),
-    vat_amount: Joi.number().required(),
-    miscellaneous_amount: Joi.number().required(),
+    cheque_depositeDate: Joi.date(),
+    cheque_clearDate: Joi.string(),
+    cheque_bouncedDate: Joi.string(),
+    cheque_holdDate: Joi.string(),
+    cheque_recivedDate: Joi.date(),
+    vat_amount: Joi.number(),
+    miscellaneous_amount: Joi.number(),
     Cheque_ID: Joi.string(),
     property_id: myJoiObjectId(),
-    ChequeListNo: Joi.string().required(),
-    securityDeposite: Joi.number().required(),
-
-
+    ChequeListNo: Joi.string(),
+    securityDeposite: Joi.number(),
+    Transaction_Type: Joi.string(),
+    depositeBank: Joi.string(),
   });
   return schema.validate(payload);
 };
