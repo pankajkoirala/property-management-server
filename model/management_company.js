@@ -45,6 +45,9 @@ const ManagementCompanySchema = mongoose.Schema({
   managementCompany_companyID: {
     type: String,
   },
+  remark: {
+    type: String,
+  },
 });
 
 const ManagementCompany = mongoose.model(
@@ -63,6 +66,8 @@ const CreateManagementCompanyValidator = (payload) => {
         file: Joi.string(),
       })
     ),
+    remark: Joi.string(),
+
     managementCompany_phoneNo: Joi.number().required(),
     managementCompany_name: Joi.string().required(),
     managementCompany_email: Joi.string().required(),
@@ -83,6 +88,8 @@ const updateManagementCompanyValidator = (payload) => {
         _id: Joi.string(),
       })
     ),
+    remark: Joi.string(),
+
     managementCompany_phoneNo: Joi.number().required(),
     managementCompany_name: Joi.string().required(),
     managementCompany_email: Joi.string().required(),

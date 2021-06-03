@@ -76,6 +76,9 @@ const TenantSchema = mongoose.Schema({
   tenant_companyTradeLicenseNo: {
     type: String,
   },
+  remark: {
+    type: String,
+  },
 });
 
 const Tenant = mongoose.model("Tenant", TenantSchema);
@@ -110,6 +113,8 @@ const createTenantValidator = (payload) => {
     tenant_companyExpireDate: Joi.date(),
     tenant_companyAuthorizePersonDesignation: Joi.string(),
     tenant_companyTradeLicenseNo: Joi.string(),
+    remark: Joi.string(),
+
   });
   return schema.validate(payload);
 };
@@ -143,6 +148,8 @@ const updateTenantValidator = (payload) => {
     tenant_companyExpireDate: Joi.date(),
     tenant_companyAuthorizePersonDesignation: Joi.string(),
     tenant_companyTradeLicenseNo: Joi.string(),
+    remark: Joi.string(),
+
   });
   return schema.validate(payload);
 };

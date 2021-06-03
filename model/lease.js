@@ -65,6 +65,9 @@ const LeaseSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  remark: {
+    type: String,
+  },
 });
 
 
@@ -77,6 +80,7 @@ const createLeaseValidator = (payload) => {
     lease_Term: Joi.string().required(),
     frequency: Joi.string().required(),
     rentAmount: Joi.number().required(),
+    remark: Joi.string(),
 
     securityDeposite: Joi.number().required(),
     LeaseId: Joi.string(),
@@ -98,6 +102,7 @@ const createLeaseValidator = (payload) => {
 const updateLeaseValidator = (payload) => {
   const schema = Joi.object({
     // chequeList: Joi.array().items(myJoiObjectId()),
+    remark: Joi.string(),
 
     tenants: myJoiObjectId(),
     lease_Term: Joi.string().required(),

@@ -62,7 +62,6 @@ const PropertySchema = mongoose.Schema({
   },
   Makani_Number: {
     type: String,
-    required: true,
   },
   Property_Area: {
     type: Number,
@@ -90,6 +89,9 @@ const PropertySchema = mongoose.Schema({
   unitNo: {
     type: String,
     required: true,
+  },
+  remark: {
+    type: String,
   },
 });
 
@@ -124,11 +126,13 @@ const createPropertyValidator = (payload) => {
     building_Number: Joi.string().required(),
     building_floorNumber: Joi.string().required(),
     Property_Premise_Number: Joi.string().required(),
-    Makani_Number: Joi.string().required(),
+    Makani_Number: Joi.string(),
     Property_Area: Joi.number().required(),
     developerCompany: myJoiObjectId(),
     managementCompany: myJoiObjectId(),
     unitNo:Joi.string().required(),
+    remark: Joi.string(),
+
   });
 
   return schema.validate(payload);
@@ -163,11 +167,12 @@ const updatePropertyValidator = (payload) => {
     building_Number: Joi.string().required(),
     building_floorNumber: Joi.string().required(),
     Property_Premise_Number: Joi.string().required(),
-    Makani_Number: Joi.string().required(),
+    Makani_Number: Joi.string(),
     Property_Area: Joi.number().required(),
     developerCompany: myJoiObjectId(),
     managementCompany: myJoiObjectId(),
     unitNo:Joi.string().required(),
+    remark: Joi.string(),
 
   });
   return schema.validate(payload);

@@ -53,6 +53,9 @@ const DeveloperCompanySchema = mongoose.Schema({
   DeveloperCompany_ID: {
     type: String,
   },
+  remark: {
+    type: String,
+  },
 });
 
 const DeveloperCompany = mongoose.model(
@@ -68,6 +71,8 @@ const DeveloperCompanyCreate = (payload) => {
         file: Joi.string(),
       })
     ),
+    remark: Joi.string(),
+
     Developer_area: Joi.string().required(),
     Developer_city: Joi.string().required(),
     Developer_country: Joi.string().required(),
@@ -90,6 +95,8 @@ const DeveloperCompanyValidator = (payload) => {
         _id: Joi.string(),
       })
     ),
+    remark: Joi.string(),
+
     Developer_area: Joi.string().required(),
     Developer_city: Joi.string().required(),
     Developer_country: Joi.string().required(),

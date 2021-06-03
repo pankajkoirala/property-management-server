@@ -51,6 +51,9 @@ const MaintananceCompanySchema = mongoose.Schema({
   Company_ID: {
     type: String,
   },
+  remark: {
+    type: String,
+  },
 });
 
 const MaintananceCompany = mongoose.model(
@@ -76,6 +79,8 @@ const CreateMaintananceCompanyValidator = (payload) => {
     Company_city: Joi.string().required(),
     Company_area: Joi.string().required(),
     Company_ID: Joi.string(),
+    remark: Joi.string(),
+
   });
   return schema.validate(payload);
 };
@@ -91,6 +96,8 @@ const updateMaintananceCompanyValidator = (payload) => {
     Company_city: Joi.string().required(),
     Company_area: Joi.string().required(),
     Company_ID: Joi.string(),
+    remark: Joi.string(),
+
     files_list: Joi.array().items(
       Joi.object({
         fileName: Joi.string(),

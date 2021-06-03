@@ -57,6 +57,9 @@ const OwnerSchema = mongoose.Schema({
   owner_ID: {
     type: String,
   },
+  remark: {
+    type: String,
+  },
 });
 
 const Owner = mongoose.model("Owner", OwnerSchema);
@@ -73,6 +76,7 @@ const CreateOwnerValidator = (payload) => {
         file: Joi.string(),
       })
     ),
+    remark: Joi.string(),
 
     owner_phoneNo: Joi.number().required(),
     owner_Name: Joi.string().required(),
@@ -97,6 +101,8 @@ const updateOwnerValidator = (payload) => {
         _id: Joi.string(),
       })
     ),
+    remark: Joi.string(),
+
     owner_phoneNo: Joi.number().required(),
     owner_Name: Joi.string().required(),
     owner_Type: Joi.string().required(),
