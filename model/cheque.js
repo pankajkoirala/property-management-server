@@ -81,6 +81,10 @@ const ChequeSchema = mongoose.Schema({
   depositeBank: {
     type: String,
   },
+total_amount: {
+  type: Number,
+},
+
 });
 
 const Cheque = mongoose.model("Cheque", ChequeSchema);
@@ -110,6 +114,7 @@ const createChequeValidator = (payload) => {
     property_id: myJoiObjectId(),
     Transaction_Type: Joi.string(),
     depositeBank: Joi.string(),
+    total_amount:Joi.number(),
   });
   return schema.validate(payload);
 };
@@ -138,6 +143,8 @@ const updateChequeValidator = (payload) => {
     securityDeposite: Joi.number(),
     Transaction_Type: Joi.string(),
     depositeBank: Joi.string(),
+    total_amount:Joi.number(),
+
   });
   return schema.validate(payload);
 };

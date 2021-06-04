@@ -79,6 +79,9 @@ const TenantSchema = mongoose.Schema({
   remark: {
     type: String,
   },
+  tenant_companyTradeLicenseIssuingAuthority: {
+    type: String,
+  },
 });
 
 const Tenant = mongoose.model("Tenant", TenantSchema);
@@ -101,7 +104,7 @@ const createTenantValidator = (payload) => {
     DateOfBirth_registrationDate: Joi.date(),
     tenant_GovIdNo: Joi.number(),
     TenantId: Joi.string(),
-
+    tenant_companyTradeLicenseIssuingAuthority: Joi.string(),
     tenant_GovIdNo_expireDate: Joi.date(),
     tenant_passport_expireDate: Joi.string(),
     tenant_passportNo: Joi.string(),
@@ -149,6 +152,8 @@ const updateTenantValidator = (payload) => {
     tenant_companyAuthorizePersonDesignation: Joi.string(),
     tenant_companyTradeLicenseNo: Joi.string(),
     remark: Joi.string(),
+    tenant_companyTradeLicenseIssuingAuthority: Joi.string(),
+
 
   });
   return schema.validate(payload);
