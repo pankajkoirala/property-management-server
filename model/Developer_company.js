@@ -23,7 +23,7 @@ const DeveloperCompanySchema = mongoose.Schema({
   },
 
   DeveloperCompany_MobileNumber: {
-    type: Number,
+    type: String,
     required: true,
   },
   DeveloperCompany_email: {
@@ -46,7 +46,7 @@ const DeveloperCompanySchema = mongoose.Schema({
   },
 
   DeveloperCompany_phoneNo: {
-    type: Number,
+    type: String,
     required: true,
   },
 
@@ -76,11 +76,11 @@ const DeveloperCompanyCreate = (payload) => {
     Developer_area: Joi.string().required(),
     Developer_city: Joi.string().required(),
     Developer_country: Joi.string().required(),
-    DeveloperCompany_phoneNo: Joi.number().required(),
+    DeveloperCompany_phoneNo: Joi.string().required(),
     DeveloperCompany_Name: Joi.string().required(),
     DeveloperCompany_RegisterationDate: Joi.date().required(),
     DeveloperCompany_email: Joi.string().required(),
-    DeveloperCompany_MobileNumber: Joi.number().required(),
+    DeveloperCompany_MobileNumber: Joi.string().required(),
     DeveloperCompany_ID: Joi.string(),
     DeveloperCompany_RegisterationNumber: Joi.string().required(),
   });
@@ -100,11 +100,11 @@ const DeveloperCompanyValidator = (payload) => {
     Developer_area: Joi.string().required(),
     Developer_city: Joi.string().required(),
     Developer_country: Joi.string().required(),
-    DeveloperCompany_phoneNo: Joi.number().required(),
+    DeveloperCompany_phoneNo: Joi.string().required(),
     DeveloperCompany_Name: Joi.string().required(),
     DeveloperCompany_RegisterationDate: Joi.date().required(),
     DeveloperCompany_email: Joi.string().required(),
-    DeveloperCompany_MobileNumber: Joi.number().required(),
+    DeveloperCompany_MobileNumber: Joi.string().required(),
     DeveloperCompany_ID: Joi.string(),
     DeveloperCompany_RegisterationNumber: Joi.string().required(),
   });

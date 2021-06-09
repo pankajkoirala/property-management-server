@@ -30,7 +30,7 @@ const OwnerSchema = mongoose.Schema({
     },
   ],
   owner_phoneNo: {
-    type: Number,
+    type: String,
     required: true,
   },
 
@@ -78,7 +78,7 @@ const CreateOwnerValidator = (payload) => {
     ),
     remark: Joi.string(),
 
-    owner_phoneNo: Joi.number().required(),
+    owner_phoneNo: Joi.string().required(),
     owner_Name: Joi.string().required(),
     owner_Type: Joi.string().required(),
     owner_GovID_RegNo: Joi.string().required(),
@@ -103,7 +103,7 @@ const updateOwnerValidator = (payload) => {
     ),
     remark: Joi.string(),
 
-    owner_phoneNo: Joi.number().required(),
+    owner_phoneNo: Joi.string().required(),
     owner_Name: Joi.string().required(),
     owner_Type: Joi.string().required(),
     owner_GovID_RegNo: Joi.string().required(),

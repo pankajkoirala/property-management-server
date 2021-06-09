@@ -24,7 +24,7 @@ const MaintananceCompanySchema = mongoose.Schema({
   },
 
   Company_phoneNo: {
-    type: Number,
+    type: String,
     required: true,
   },
   Company_Registration_Number: {
@@ -45,7 +45,7 @@ const MaintananceCompanySchema = mongoose.Schema({
     required: true,
   },
   Company_Mobile_Number: {
-    type: Number,
+    type: String,
     required: true,
   },
   Company_ID: {
@@ -71,16 +71,15 @@ const CreateMaintananceCompanyValidator = (payload) => {
     ),
     Company_email: Joi.string().required(),
     Company_Name: Joi.string().required(),
-    Company_Mobile_Number: Joi.number().required(),
+    Company_Mobile_Number: Joi.string().required(),
     Company_Registeration_Date: Joi.date().required(),
     Company_Registration_Number: Joi.string().required(),
-    Company_phoneNo: Joi.number().required(),
+    Company_phoneNo: Joi.string().required(),
     Company_country: Joi.string().required(),
     Company_city: Joi.string().required(),
     Company_area: Joi.string().required(),
     Company_ID: Joi.string(),
     remark: Joi.string(),
-
   });
   return schema.validate(payload);
 };
@@ -88,10 +87,10 @@ const updateMaintananceCompanyValidator = (payload) => {
   const schema = Joi.object({
     Company_email: Joi.string().required(),
     Company_Name: Joi.string().required(),
-    Company_Mobile_Number: Joi.number().required(),
+    Company_Mobile_Number: Joi.string().required(),
     Company_Registeration_Date: Joi.date().required(),
     Company_Registration_Number: Joi.string().required(),
-    Company_phoneNo: Joi.number().required(),
+    Company_phoneNo: Joi.string().required(),
     Company_country: Joi.string().required(),
     Company_city: Joi.string().required(),
     Company_area: Joi.string().required(),

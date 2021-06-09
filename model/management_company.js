@@ -24,7 +24,7 @@ const ManagementCompanySchema = mongoose.Schema({
     },
   ],
   managementCompany_phoneNo: {
-    type: Number,
+    type: String,
     required: true,
   },
   managementCompany_name: {
@@ -32,13 +32,12 @@ const ManagementCompanySchema = mongoose.Schema({
     required: true,
   },
 
-
   managementCompany_email: {
     type: String,
     required: true,
   },
   managementCompany_MobileNumber: {
-    type: Number,
+    type: String,
     required: true,
   },
 
@@ -68,10 +67,10 @@ const CreateManagementCompanyValidator = (payload) => {
     ),
     remark: Joi.string(),
 
-    managementCompany_phoneNo: Joi.number().required(),
+    managementCompany_phoneNo: Joi.string().required(),
     managementCompany_name: Joi.string().required(),
     managementCompany_email: Joi.string().required(),
-    managementCompany_MobileNumber: Joi.number().required(),
+    managementCompany_MobileNumber: Joi.string().required(),
     managementCompany_companyID: Joi.string(),
   });
   return schema.validate(payload);
@@ -90,10 +89,10 @@ const updateManagementCompanyValidator = (payload) => {
     ),
     remark: Joi.string(),
 
-    managementCompany_phoneNo: Joi.number().required(),
+    managementCompany_phoneNo: Joi.string().required(),
     managementCompany_name: Joi.string().required(),
     managementCompany_email: Joi.string().required(),
-    managementCompany_MobileNumber: Joi.number().required(),
+    managementCompany_MobileNumber: Joi.string().required(),
     managementCompany_companyID: Joi.string(),
   });
   return schema.validate(payload);

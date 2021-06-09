@@ -10,7 +10,7 @@ const TenantSchema = mongoose.Schema({
     },
   ],
   tenant_phoneNo: {
-    type: Number,
+    type: String,
   },
   tenant_Name: {
     type: String,
@@ -97,7 +97,7 @@ const createTenantValidator = (payload) => {
     tenant_Name: Joi.string(),
     TenentType: Joi.string(),
     tenant_email: Joi.string(),
-    tenant_phoneNo: Joi.number(),
+    tenant_phoneNo: Joi.string(),
     area: Joi.string(),
     city: Joi.string(),
     country: Joi.string(),
@@ -117,7 +117,6 @@ const createTenantValidator = (payload) => {
     tenant_companyAuthorizePersonDesignation: Joi.string(),
     tenant_companyTradeLicenseNo: Joi.string(),
     remark: Joi.string(),
-
   });
   return schema.validate(payload);
 };
@@ -133,7 +132,7 @@ const updateTenantValidator = (payload) => {
     tenant_Name: Joi.string(),
     TenentType: Joi.string(),
     tenant_email: Joi.string(),
-    tenant_phoneNo: Joi.number(),
+    tenant_phoneNo: Joi.string(),
     area: Joi.string(),
     city: Joi.string(),
     country: Joi.string(),
@@ -153,8 +152,6 @@ const updateTenantValidator = (payload) => {
     tenant_companyTradeLicenseNo: Joi.string(),
     remark: Joi.string(),
     tenant_companyTradeLicenseIssuingAuthority: Joi.string(),
-
-
   });
   return schema.validate(payload);
 };
