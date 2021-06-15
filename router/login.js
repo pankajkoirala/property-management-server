@@ -4,7 +4,7 @@ const router = express.Router();
 //bcrypt change passwort to sign
 const bcrypt = require("bcrypt");
 //token 
-const jwt=require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 
 const {
   UpdateSignupValidator,
@@ -17,7 +17,7 @@ const { Router } = require("express");
 router.get("/signup", (req, res) => {
   signup
     .find()
-     .then((Data) => res.json(Data))
+    .then((Data) => res.json(Data))
     .catch((err) => res.json(err));
 });
 
@@ -57,28 +57,29 @@ router.post("/signup", (req, res) => {
   });
 });
 router.post("/login", (req, res, next) => {
-signup.findOne({email:req.body.email}).then((user)=>{
-  if(!user){
-    return res.status(401).json({message:"username and password doesn't match"})
-  }
-  //password matching with code
-  bcrypt.compare(req.body.password,user.password,(err,resp)=>{
-    if(err){
-      return res.status(401).json({message:"username and password doesn't match"})
+  signup.findOne({ email: req.body.email }).then((user) => {
+    if (!user) {
+      return res.status(401).json({ message: "username and password doesn't match" })
     }
-    if(resp){
-    const token=jwt.sign({
-        email:user.email,
-        userId:user._id
-      },process.env.jwt_key,
-      {
-        expiresIn:"5h"
-      },)
-      return res.status(200).json({message:"auth successful",token:token})
-    }
-    return res.status(401).json({message:"username and password doesn't match"})
-  })
-}).catch((err)=>res.json({message:err}))
+    //password matching with code
+    bcrypt.compare(req.body.password, user.password, (err, resp) => {
+      if (err) {
+        return res.status(401).json({ message: "username and password doesn't match" })
+      }
+      if (resp) {
+        const token = jwt.sign({
+          email: user.email,
+          userId: user._id
+        }, process.env.jwt_key,
+          // {
+          //   expiresIn:"5h"
+          // },
+        )
+        return res.status(200).json({ message: "auth successful", token: token })
+      }
+      return res.status(401).json({ message: "username and password doesn't match" })
+    })
+  }).catch((err) => res.json({ message: err }))
 
 });
 
