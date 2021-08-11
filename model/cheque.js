@@ -14,9 +14,7 @@ const ChequeSchema = mongoose.Schema({
   cheque_status: {
     type: String,
   },
-  cheque_issueDate: {
-    type: Date,
-  },
+
   entryDate: {
     type: Date,
   },
@@ -81,9 +79,9 @@ const ChequeSchema = mongoose.Schema({
   depositeBank: {
     type: String,
   },
-total_amount: {
-  type: Number,
-},
+  total_amount: {
+    type: Number,
+  },
 
 });
 
@@ -95,7 +93,6 @@ const createChequeValidator = (payload) => {
     cheque_number: Joi.string(),
     cheque_status: Joi.string(),
     cheque_bankName: Joi.string(),
-    cheque_issueDate: Joi.date(),
     entryDate: Joi.date(),
     cheque_remarks: Joi.string(),
     cheque_picture_back: Joi.string(),
@@ -114,7 +111,7 @@ const createChequeValidator = (payload) => {
     property_id: myJoiObjectId(),
     Transaction_Type: Joi.string(),
     depositeBank: Joi.string(),
-    total_amount:Joi.number(),
+    total_amount: Joi.number(),
   });
   return schema.validate(payload);
 };
@@ -123,7 +120,6 @@ const updateChequeValidator = (payload) => {
     cheque_number: Joi.string(),
     cheque_amount: Joi.number(),
     cheque_status: Joi.string(),
-    cheque_issueDate: Joi.date(),
     entryDate: Joi.date(),
     cheque_remarks: Joi.string(),
     cheque_picture_back: Joi.string(),
@@ -143,7 +139,7 @@ const updateChequeValidator = (payload) => {
     securityDeposite: Joi.number(),
     Transaction_Type: Joi.string(),
     depositeBank: Joi.string(),
-    total_amount:Joi.number(),
+    total_amount: Joi.number(),
 
   });
   return schema.validate(payload);
