@@ -7,6 +7,7 @@ const {
   createLeaseValidator,
   updateLeaseValidator,
 } = require("../model/lease");
+const { Cheque } = require('../model/cheque')
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const auth = require("../middleware/middleware");
@@ -67,8 +68,8 @@ router.put("/lease/:id", auth, upload.any(), (req, res) => {
   Promise.all(uploadedFile).then((result) => {
     req.body.files_list = result[0]
       ? result.map((photo) => {
-          return { fileName: photo.original_filename, file: photo.secure_url };
-        })
+        return { fileName: photo.original_filename, file: photo.secure_url };
+      })
       : JSON.parse(req.body.files_list);
     const { error } = updateLeaseValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
@@ -85,10 +86,14 @@ router.put("/lease/:id", auth, upload.any(), (req, res) => {
 });
 
 //delet router
-router.delete("/lease/:id", (req, res) => {
+router.delete("/lease/:id", async (req, res) => {
   Lease.remove({ _id: req.params.id })
-    .then((data) => res.json("data deleted"))
+    .then(async (data) => {
+      const p = await Cheque.deleteMany({ lease_property: req.params.id })
+      res.json("data deleted")
+    })
     .catch((err) => res.json(err));
 });
+
 
 module.exports = router;
