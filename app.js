@@ -93,6 +93,9 @@ app.use("/api", invoiceRouter);
 // Cheque info
 const chequeInfoRouter = require("./router/chequeInfo");
 app.use("/api", chequeInfoRouter);
+// FMC info
+const FmcRouter = require("./router/FMC");
+app.use("/api", FmcRouter);
 
 // routes
 app.get("/", (req, res) => {
