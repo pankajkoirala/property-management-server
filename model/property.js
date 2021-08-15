@@ -22,6 +22,10 @@ const PropertySchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  property_name: {
+    type: String,
+    required: true,
+  },
   property_price: {
     type: Number,
     required: true,
@@ -116,6 +120,7 @@ const createPropertyValidator = (payload) => {
     ),
     Property_ownerName: Joi.array().items(myJoiObjectId()),
     property_type: Joi.string().required(),
+    property_name: Joi.string().required(),
     property_price: Joi.number().required(),
     area: Joi.string().required(),
     city: Joi.string().required(),
@@ -130,7 +135,7 @@ const createPropertyValidator = (payload) => {
     Property_Area: Joi.number().required(),
     developerCompany: myJoiObjectId(),
     managementCompany: myJoiObjectId(),
-    unitNo:Joi.string().required(),
+    unitNo: Joi.string().required(),
     remark: Joi.string(),
 
   });
@@ -157,6 +162,7 @@ const updatePropertyValidator = (payload) => {
     ),
     Property_ownerName: Joi.array().items(myJoiObjectId()),
     property_type: Joi.string().required(),
+    property_name: Joi.string().required(),
     property_price: Joi.number().required(),
     area: Joi.string().required(),
     city: Joi.string().required(),
@@ -171,7 +177,7 @@ const updatePropertyValidator = (payload) => {
     Property_Area: Joi.number().required(),
     developerCompany: myJoiObjectId(),
     managementCompany: myJoiObjectId(),
-    unitNo:Joi.string().required(),
+    unitNo: Joi.string().required(),
     remark: Joi.string(),
 
   });

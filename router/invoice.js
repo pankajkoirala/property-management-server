@@ -40,18 +40,14 @@ router.get("/invoice/:id", (req, res) => {
 //post router
 router.post("/invoice", upload.any(), auth, (req, res) => {
   if (!req.files) return res.status(401).send(new Error("photo not found"));
-  let uploadedFile = req.files.map((file) =>
-    cloudinary.uploader.upload(file.path, { format: "jpeg" })
-  );
-  Promise.all(uploadedFile).then((result) => {
-    req.body.invoicePhoto = result[0].secure_url;
-    const { error } = createInvoiceValidator(req.body);
-    if (error) return res.status(401).send(error.details[0].message);
-    let InvoiceData = new Invoice(req.body);
-    InvoiceData.save()
-      .then((data) => res.send(data))
-      .catch((err) => res.send(err));
-  });
+
+
+  const { error } = createInvoiceValidator(req.body);
+  if (error) return res.status(401).send(error.details[0].message);
+  let InvoiceData = new Invoice(req.body);
+  InvoiceData.save()
+    .then((data) => res.send(data))
+    .catch((err) => res.send(err));
 });
 
 //update to be left to validate
