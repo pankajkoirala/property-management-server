@@ -58,15 +58,14 @@ router.post("/DeveloperCompany", auth, upload.any(), (req, res) => {
 
 //update to be left to validate
 router.put("/DeveloperCompany/:id", auth, upload.any(), (req, res) => {
-  if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
     req.body.files_list = result[0]
       ? result.map((photo) => {
-          return { fileName: photo.original_filename, file: photo.secure_url };
-        })
+        return { fileName: photo.original_filename, file: photo.secure_url };
+      })
       : JSON.parse(req.body.files_list);
     const { error } = DeveloperCompanyValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);

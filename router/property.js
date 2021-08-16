@@ -73,15 +73,14 @@ router.post("/property", auth, upload.any(), (req, res) => {
 router.put("/property/:id", auth, upload.any(), (req, res) => {
   req.body.Property_ownerName = JSON.parse(req.body.Property_ownerName);
   req.body.facilities = JSON.parse(req.body.facilities);
-  if (!req.files) return res.status(401).send(new Error("photo not found"));
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
     req.body.files_list = result[0]
       ? result.map((photo) => {
-          return { fileName: photo.original_filename, file: photo.secure_url };
-        })
+        return { fileName: photo.original_filename, file: photo.secure_url };
+      })
       : JSON.parse(req.body.files_list);
 
     const { error } = updatePropertyValidator(req.body);

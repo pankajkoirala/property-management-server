@@ -7,14 +7,10 @@ const path = require("path");
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config;
 
-//aarko body parser haleko
-app.use(bodyParser.urlencoded({ extended: true }));
-
-//middleware for body parser
-app.use(bodyParser.json());
-
-//middleware for cors
 app.use(cors());
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+//middleware for cors
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -42,6 +38,9 @@ app.use("/api", SignupRouter);
 const propertyRouter = require("./router/property");
 app.use("/api", propertyRouter);
 
+// FMC info
+const FmcRouter = require("./router/FMC");
+app.use("/api", FmcRouter);
 // router tenant
 const TenantRouter = require("./router/tanent");
 app.use("/api", TenantRouter);
@@ -93,9 +92,7 @@ app.use("/api", invoiceRouter);
 // Cheque info
 const chequeInfoRouter = require("./router/chequeInfo");
 app.use("/api", chequeInfoRouter);
-// FMC info
-const FmcRouter = require("./router/FMC");
-app.use("/api", FmcRouter);
+
 
 // routes
 app.get("/", (req, res) => {

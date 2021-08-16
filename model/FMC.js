@@ -21,10 +21,19 @@ const FMCSchema = mongoose.Schema({
   quarter: {
     type: String
   },
-  date: {
+  entry_date: {
     type: Date
   },
   remark: {
+    type: String,
+  },
+  file1: {
+    type: String,
+  },
+  file2: {
+    type: String,
+  },
+  fmcInvoice_Date: {
     type: String,
   },
 });
@@ -40,8 +49,11 @@ const createFMCValidator = (payload) => {
     management_Companies: myJoiObjectId(),
     totalAmount: Joi.number().required(),
     quarter: Joi.string().required(),
-    date: Joi.date().required(),
+    entry_date: Joi.date().required(),
     remark: Joi.string(),
+    file1: Joi.string(),
+    file2: Joi.string(),
+    fmcInvoice_Date: Joi.string(),
   });
   return schema.validate(payload);
 };
@@ -52,8 +64,11 @@ const updateFMCValidator = (payload) => {
     quarter: Joi.string().required(),
     management_Companies: myJoiObjectId(),
     totalAmount: Joi.number().required(),
-    date: Joi.date().required(),
+    entry_date: Joi.date().required(),
     remark: Joi.string(),
+    file1: Joi.string(),
+    file2: Joi.string(),
+    fmcInvoice_Date: Joi.string(),
 
   });
   return schema.validate(payload);

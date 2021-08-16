@@ -14,6 +14,7 @@ const auth = require("../middleware/middleware");
 
 //multer config
 const storage = multer.diskStorage({
+  // destination: 'upload',
   filename: (req, file, cb) => {
     cb(
       null,
@@ -67,12 +68,12 @@ router.post("/cheque", auth, upload.any(), (req, res) => {
 //update to be left to validate
 
 router.put("/cheque/:id", auth, upload.any(), (req, res) => {
-  if (!req.files) return res.status(401).send(new Error("photo not found"));
+  console.log(req.files);
   let uploadedFile = req.files.map((file) =>
     cloudinary.uploader.upload(file.path)
   );
   Promise.all(uploadedFile).then((result) => {
-    if (req.files.length) {  
+    if (result.length) {
       req.body.cheque_picture_front = result[0]
         ? result[0].secure_url
         : req.body.cheque_picture_front;
